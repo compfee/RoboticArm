@@ -76,7 +76,7 @@ def print_predictions(test_dir):
 
 connect_ttyACMx()
 i = 0
-model_path = './model/hand_2208'
+model_path = 'source/roboarm_move/model/hand_2208'
 frame_path = '../../data_Set/data/'
 model_load(model_path)
 set_camera()
