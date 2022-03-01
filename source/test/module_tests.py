@@ -12,7 +12,7 @@ def test_offset_calculating2():
     assert move_x([0.7, 0.0, 0.9, 0.0], 77) == (89)
 
 def test_predictions_checking():
-    frame_path = '../../data_Set/frame_path/'
+    frame_path = '../data_Set/frame_path/'
     warnings.warn(UserWarning("smth"))
     test_x_data_set, predictions = print_predictions(frame_path)
     assert all(np.logical_and(predictions[0] > 0, predictions[0] < 1)) == all(np.ones((4), dtype=bool))
