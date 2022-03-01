@@ -77,7 +77,7 @@ def print_predictions(test_dir):
 connect_ttyACMx()
 i = 0
 model_path = 'source/roboarm_move/model/hand_2208'
-frame_path = '../../data_Set/data/'
+frame_path = 'source/data_Set/data/'
 model_load(model_path)
 set_camera()
 temp = 1
@@ -96,10 +96,10 @@ while temp == 1:
     #
     # test_x_data_set = test_x_data_set / 255
     # model = model_load(path)
-    test_dir = '../../data_Set/data/'
+    test_dir = 'data_Set/data/'
     test_x_data_set, predictions = print_predictions(test_dir)
     j = 0
-    with open('../../data_Set/with_coordinates/predictions.csv', 'w') as f:
+    with open('data_Set/with_coordinates/predictions.csv', 'w') as f:
         # create the csv writer
         writer = csv.writer(f)
         for j in predictions:
@@ -114,7 +114,7 @@ while temp == 1:
     print(height)
     print(width)
 
-    with open('../../data_Set/with_coordinates/predictions.csv') as File:
+    with open('data_Set/with_coordinates/predictions.csv') as File:
         reader = csv.reader(File)
         for x in reader:
             # current_middle = int(ser.readline().decode())
