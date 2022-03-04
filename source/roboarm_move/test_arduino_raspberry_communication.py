@@ -11,6 +11,7 @@ from pathlib import Path
 import usb.core
 import usb.util
 import time
+import os
 
 def get_project_root() -> Path:
     return Path(__file__).parent.parent
@@ -22,12 +23,16 @@ model_path = str(get_project_root()) + '/roboarm_move/model/hand_2208'
 frame_path = str(get_project_root()) + '/data_Set/data/'
 test_dir = str(get_project_root())+'/data_Set/data/'
 
+count = 0
+
+
+
 class Camera:
     def __init__(self):
         print("Init camera")
         self.resolution = (2592, 1944)
         self.rotation = 180
-        self.filesCount = 20
+        self.filesCount = self.capture(test_dir)
 
     def set_camera(self, resolution, rotation):
         print("Set up camera")
@@ -41,10 +46,17 @@ class Camera:
     def stop_preview(self):
         print("Stop preview")
 
-    def capture(self, path):
-        for i in range(self.filesCount):
-            print("Make photo frame%04d.jpg" % i)
-        return i
+    def capture(self, file_path):
+        count = 0
+        for base, dirs, files in os.walk(file_path):
+            for Files in files:
+                print("Make photo frame%04d.jpg" % count)
+                count += 1
+
+        print("count = ",count)
+        return count
+
+
     def sleep(self, sec):
         time.sleep(sec)
 
@@ -81,11 +93,10 @@ class CommunicationArduinoRaspberry:
             print("Cannot load model")
 
     def camera_capture(self):
-        path = str(get_project_root()) + '/data_Set/frames_from_camera/'
         camera = Camera()
         camera.start_preview()
         camera.sleep(0.001)
-        camera.capture(path)
+        camera.capture(test_dir)
         camera.stop_preview()
 
     def print_predictions(self, test_dir):
@@ -101,7 +112,7 @@ class CommunicationArduinoRaspberry:
         test_x_data_set = test_x_data_set / 255
         model = self.model_load(model_path)
         predictions = model.predict(test_x_data_set)
-        return test_x_data_set, predictions
+        return test_sample,test_x_data_set, predictions
 
     def write_predictions_to_csv(self, predictions):
         with open((str(get_project_root())+'/data_Set/with_coordinates/predictions.csv'), 'w') as f:
@@ -150,7 +161,7 @@ if __name__ == '__main__':
 
     while temp != 1:
         communication.camera_capture()
-        test_x_data_set, predictions = communication.print_predictions(test_dir)
+        test_sample, test_x_data_set, predictions = communication.print_predictions(test_dir)
         communication.write_predictions_to_csv(predictions)
         test_x_data_set[0].shape
 
