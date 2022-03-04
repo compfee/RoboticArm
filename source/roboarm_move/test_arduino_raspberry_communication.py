@@ -8,12 +8,18 @@ from tensorflow import keras
 import csv
 # from picamera import PiCamera
 from pathlib import Path
+import usb.core
+import usb.util
+
 
 def get_project_root() -> Path:
     return Path(__file__).parent.parent
 
 WIDTH_ANGLE = 62
 HEIGH_ANGLE = 48
+
+model_path = str(get_project_root()) + '/roboarm_move/model/hand_2208'
+frame_path = str(get_project_root()) + '/data_Set/data/'
 
 
 def move_x(x, current):
@@ -31,6 +37,12 @@ def move_x(x, current):
 
 def connect_ttyACMx():
     print('connect_ttyACMx')
+    try:
+        dev = usb.core.find(idVendor=0xfffe, idProduct=0x0001)
+    except:
+        print('Device not found')
+
+
     # try:
     #     ser = serial.Serial('/dev/ttyACM0',9600)
     # except:
@@ -76,59 +88,58 @@ def print_predictions(test_dir):
     predictions = model.predict(test_x_data_set)
     return test_x_data_set, predictions
 
-
-connect_ttyACMx()
-i = 0
-
-model_path = str(get_project_root())+'/roboarm_move/model/hand_2208'
-frame_path = str(get_project_root())+'/data_Set/data/'
-model_load(model_path)
-set_camera()
-temp = 1
-
-while temp == 1:
-    camera_capture()
-    # test_dir = 'C:/Users/Somn117/Documents/RoboticArm/data_Set/data/'
-    # test_sample = len(os.listdir(test_dir))
-    # test_x_data_set = np.zeros([test_sample, 100, 100, 3])
-    # print("Test Set samples: " + str(test_sample))
-    # for index, filename in enumerate(os.listdir(test_dir)):
-    #     img = Image.open(test_dir + filename)
-    #     img = img.resize((100, 100), Image.ANTIALIAS)
-    #     im = np.array(img)
-    #     test_x_data_set[index, :, :, :] = im
-    #
-    # test_x_data_set = test_x_data_set / 255
-    # model = model_load(path)
-    test_dir = str(get_project_root())+'/data_Set/data/'
-    test_x_data_set, predictions = print_predictions(test_dir)
-    j = 0
-    with open(str(get_project_root())+'/data_Set/with_coordinates/predictions.csv', 'w') as f:
-        # create the csv writer
-        writer = csv.writer(f)
-        for j in predictions:
-            # write a row to the csv file
-            writer.writerow(j)
-    test_x_data_set[0].shape
-
+if __name__ == '__main__':
+    connect_ttyACMx()
     i = 0
-    print('pred = ', predictions[i])
-    height = predictions[i][2] - predictions[i][0]
-    width = predictions[i][3] - predictions[i][1]
-    print(height)
-    print(width)
+    model_load(model_path)
+    set_camera()
+    temp = 1
 
-    with open(str(get_project_root())+'/data_Set/with_coordinates/predictions.csv') as File:
-        reader = csv.reader(File)
-        for x in reader:
-            # current_middle = int(ser.readline().decode())
-            # x_ = [float(x[0]),float(x[1]),float(x[2]),float(x[3])]
-            # offset = str(move_x(x_,current_middle))
-            #
-            # ser.write(offset.encode())
-            # print(offset)
-            # time.sleep(2)
-            print("offset")
-    temp = 0
+    while temp == 1:
+        camera_capture()
+        # test_dir = 'C:/Users/Somn117/Documents/RoboticArm/data_Set/data/'
+        # test_sample = len(os.listdir(test_dir))
+        # test_x_data_set = np.zeros([test_sample, 100, 100, 3])
+        # print("Test Set samples: " + str(test_sample))
+        # for index, filename in enumerate(os.listdir(test_dir)):
+        #     img = Image.open(test_dir + filename)
+        #     img = img.resize((100, 100), Image.ANTIALIAS)
+        #     im = np.array(img)
+        #     test_x_data_set[index, :, :, :] = im
+        #
+        # test_x_data_set = test_x_data_set / 255
+        # model = model_load(path)
+        test_dir = str(get_project_root())+'/data_Set/data/'
+        test_x_data_set, predictions = print_predictions(test_dir)
+        j = 0
+        with open(str(get_project_root())+'/data_Set/with_coordinates/predictions.csv', 'w') as f:
+            # create the csv writer
+            writer = csv.writer(f)
+            for j in predictions:
+                # write a row to the csv file
+                writer.writerow(j)
+        test_x_data_set[0].shape
+
+        i = 0
+        print('pred = ', predictions[i])
+        height = predictions[i][2] - predictions[i][0]
+        width = predictions[i][3] - predictions[i][1]
+        print(height)
+        print(width)
+
+        with open(str(get_project_root())+'/data_Set/with_coordinates/predictions.csv') as File:
+            reader = csv.reader(File)
+            for x in reader:
+                # current_middle = int(ser.readline().decode())
+                # x_ = [float(x[0]),float(x[1]),float(x[2]),float(x[3])]
+                # offset = str(move_x(x_,current_middle))
+                #
+                # ser.write(offset.encode())
+                # print(offset)
+                # time.sleep(2)
+                print("offset")
+        temp = 0
+
+
 
 
