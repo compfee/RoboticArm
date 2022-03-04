@@ -10,6 +10,7 @@ import csv
 from pathlib import Path
 import usb.core
 import usb.util
+import time
 
 def get_project_root() -> Path:
     return Path(__file__).parent.parent
@@ -20,31 +21,49 @@ HEIGH_ANGLE = 48
 model_path = str(get_project_root()) + '/roboarm_move/model/hand_2208'
 frame_path = str(get_project_root()) + '/data_Set/data/'
 
+class Camera:
+    def __init__(self):
+        print("Init camera")
+        self.resolution = (2592, 1944)
+        self.rotation = 180
+        self.filesCount = 20
+
+    def start_preview(self):
+        print("Start preview")
+
+    def stop_preview(self):
+        print("Stop preview")
+
+    def capture(self, path):
+        for i in range(self.filesCount):
+            print("Make photo frame%04d.jpg" % i)
+        return i
+    def sleep(self, sec):
+        time.sleep(sec)
 
 class CommunicationArduinoRaspberry:
     def __init__(self):
-        print("in init")
+        print("Init")
 
     def move_x(self, x, current):
         angle = (x[2] - x[0]) * 62.0
 
         if (x[0] < 0.5 or x[2] < 0.5):
-            print('left')
+            print('Left')
             offset = int(current - angle)
         else:
-            print('right')
+            print('Right')
             offset = int(current + angle)
 
         return offset
 
 
     def connect_ttyACMx(self):
-        print('connect_ttyACMx')
+        print('Connect to ttyACMx')
         try:
             dev = usb.core.find(idVendor=0xfffe, idProduct=0x0001)
         except:
             print('Device not found')
-
 
         # try:
         #     ser = serial.Serial('/dev/ttyACM0',9600)
@@ -54,25 +73,29 @@ class CommunicationArduinoRaspberry:
 
 
     def model_load(self, model_path):
-        print("model is loaded")
-        model = keras.models.load_model(model_path)
-        return model
+        try:
+            model = keras.models.load_model(model_path)
+            print("Model is loaded")
+            return model
+        except FileNotFoundError:
+            print("Cannot load model")
+
 
 
     def set_camera(self):
-        print("set camera")
-        # camera = PiCamera()
-        # camera.resolution = (2592, 1944)
-        # camera.rotation=180
+        camera = Camera()
+        print("Set up camera")
+        return camera.resolution, camera.rotation
 
 
     def camera_capture(self):
-        print('capture')
-        # camera.start_preview()
-        # sleep(2)
-        # camera.capture('/home/pi/Downloads/RoboArm/data_Set/with_coordinates/test_arm/data/frame%04d.jpg' % i)
-        # i+=1
-        # camera.stop_preview()
+        path = str(get_project_root()) + '/data_Set/frames_from_camera/'
+        camera = Camera()
+        print('Capture')
+        camera.start_preview()
+        camera.sleep(0.001)
+        camera.capture(path)
+        camera.stop_preview()
 
 
     def print_predictions(self, test_dir):
@@ -125,7 +148,7 @@ if __name__ == '__main__':
         test_x_data_set[0].shape
 
         i = 0
-        print('pred = ', predictions[i])
+        print('Pred = ', predictions[i])
         height = predictions[i][2] - predictions[i][0]
         width = predictions[i][3] - predictions[i][1]
         print(height)
@@ -141,7 +164,7 @@ if __name__ == '__main__':
                 # ser.write(offset.encode())
                 # print(offset)
                 # time.sleep(2)
-                print("offset")
+                print("Offset")
         temp = 0
 
 
