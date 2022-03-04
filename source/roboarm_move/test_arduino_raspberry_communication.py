@@ -11,7 +11,6 @@ from pathlib import Path
 import usb.core
 import usb.util
 
-
 def get_project_root() -> Path:
     return Path(__file__).parent.parent
 
@@ -22,81 +21,86 @@ model_path = str(get_project_root()) + '/roboarm_move/model/hand_2208'
 frame_path = str(get_project_root()) + '/data_Set/data/'
 
 
-def move_x(x, current):
-    angle = (x[2] - x[0]) * 62.0
+class CommunicationArduinoRaspberry:
+    def __init__(self):
+        print("in init")
 
-    if (x[0] < 0.5 or x[2] < 0.5):
-        print('left')
-        offset = int(current - angle)
-    else:
-        print('right')
-        offset = int(current + angle)
+    def move_x(self, x, current):
+        angle = (x[2] - x[0]) * 62.0
 
-    return offset
+        if (x[0] < 0.5 or x[2] < 0.5):
+            print('left')
+            offset = int(current - angle)
+        else:
+            print('right')
+            offset = int(current + angle)
 
-
-def connect_ttyACMx():
-    print('connect_ttyACMx')
-    try:
-        dev = usb.core.find(idVendor=0xfffe, idProduct=0x0001)
-    except:
-        print('Device not found')
+        return offset
 
 
-    # try:
-    #     ser = serial.Serial('/dev/ttyACM0',9600)
-    # except:
-    #     ser = serial.Serial('/dev/ttyACM1',9600)
-    # time.sleep(2)
+    def connect_ttyACMx(self):
+        print('connect_ttyACMx')
+        try:
+            dev = usb.core.find(idVendor=0xfffe, idProduct=0x0001)
+        except:
+            print('Device not found')
 
 
-def model_load(model_path):
-    print("model is loaded")
-    model = keras.models.load_model(model_path)
-    return model
+        # try:
+        #     ser = serial.Serial('/dev/ttyACM0',9600)
+        # except:
+        #     ser = serial.Serial('/dev/ttyACM1',9600)
+        # time.sleep(2)
 
 
-def set_camera():
-    print("set camera")
-    # camera = PiCamera()
-    # camera.resolution = (2592, 1944)
-    # camera.rotation=180
+    def model_load(self, model_path):
+        print("model is loaded")
+        model = keras.models.load_model(model_path)
+        return model
 
 
-def camera_capture():
-    print('capture')
-    # camera.start_preview()
-    # sleep(2)
-    # camera.capture('/home/pi/Downloads/RoboArm/data_Set/with_coordinates/test_arm/data/frame%04d.jpg' % i)
-    # i+=1
-    # camera.stop_preview()
+    def set_camera(self):
+        print("set camera")
+        # camera = PiCamera()
+        # camera.resolution = (2592, 1944)
+        # camera.rotation=180
 
 
-def print_predictions(test_dir):
-    # test_dir = 'C:/Users/Somn117/Documents/RoboticArm/data_Set/data/'
-    test_sample = len(os.listdir(test_dir))
-    test_x_data_set = np.zeros([test_sample, 100, 100, 3])
-    print("Test Set samples: " + str(test_sample))
-    for index, filename in enumerate(os.listdir(test_dir)):
-        img = Image.open(test_dir + filename)
-        img = img.resize((100, 100), Image.ANTIALIAS)
-        im = np.array(img)
-        test_x_data_set[index, :, :, :] = im
+    def camera_capture(self):
+        print('capture')
+        # camera.start_preview()
+        # sleep(2)
+        # camera.capture('/home/pi/Downloads/RoboArm/data_Set/with_coordinates/test_arm/data/frame%04d.jpg' % i)
+        # i+=1
+        # camera.stop_preview()
 
-    test_x_data_set = test_x_data_set / 255
-    model = model_load(model_path)
-    predictions = model.predict(test_x_data_set)
-    return test_x_data_set, predictions
+
+    def print_predictions(self, test_dir):
+        # test_dir = 'C:/Users/Somn117/Documents/RoboticArm/data_Set/data/'
+        test_sample = len(os.listdir(test_dir))
+        test_x_data_set = np.zeros([test_sample, 100, 100, 3])
+        print("Test Set samples: " + str(test_sample))
+        for index, filename in enumerate(os.listdir(test_dir)):
+            img = Image.open(test_dir + filename)
+            img = img.resize((100, 100), Image.ANTIALIAS)
+            im = np.array(img)
+            test_x_data_set[index, :, :, :] = im
+
+        test_x_data_set = test_x_data_set / 255
+        model = self.model_load(model_path)
+        predictions = model.predict(test_x_data_set)
+        return test_x_data_set, predictions
 
 if __name__ == '__main__':
-    connect_ttyACMx()
     i = 0
-    model_load(model_path)
-    set_camera()
     temp = 1
+    communication = CommunicationArduinoRaspberry()
+    communication.connect_ttyACMx()
+    communication.model_load(model_path)
+    communication.set_camera()
 
     while temp == 1:
-        camera_capture()
+        communication.camera_capture()
         # test_dir = 'C:/Users/Somn117/Documents/RoboticArm/data_Set/data/'
         # test_sample = len(os.listdir(test_dir))
         # test_x_data_set = np.zeros([test_sample, 100, 100, 3])
@@ -110,7 +114,7 @@ if __name__ == '__main__':
         # test_x_data_set = test_x_data_set / 255
         # model = model_load(path)
         test_dir = str(get_project_root())+'/data_Set/data/'
-        test_x_data_set, predictions = print_predictions(test_dir)
+        test_x_data_set, predictions = communication.print_predictions(test_dir)
         j = 0
         with open(str(get_project_root())+'/data_Set/with_coordinates/predictions.csv', 'w') as f:
             # create the csv writer
