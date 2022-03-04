@@ -89,8 +89,9 @@ class CommunicationArduinoRaspberry:
             model = keras.models.load_model(model_path)
             print("Model is loaded")
             return model
-        except FileNotFoundError:
+        except:
             print("Cannot load model")
+            raise FileNotFoundError
 
     def camera_capture(self):
         camera = Camera()

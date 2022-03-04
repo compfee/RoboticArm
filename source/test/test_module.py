@@ -2,6 +2,7 @@ import pytest
 import numpy as np
 import warnings
 import time
+from tensorflow import keras
 from roboarm_move.test_arduino_raspberry_communication import CommunicationArduinoRaspberry
 from roboarm_move.test_arduino_raspberry_communication import Camera
 from roboarm_move.test_arduino_raspberry_communication import get_project_root
@@ -35,3 +36,8 @@ def test_capture():
 def test_sleep():
     camera.sleep(0.1)
     assert camera.sleep(0.1) == time.sleep(0.1)
+
+def test_model_load():
+    model_path = str(get_project_root()) + '/data_Set/frame_path/'
+    with pytest.raises(FileNotFoundError):
+        communication.model_load(model_path)
