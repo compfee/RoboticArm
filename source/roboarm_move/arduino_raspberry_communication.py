@@ -22,7 +22,7 @@ HEIGH_ANGLE = 48
 model_path = str(get_project_root()) + '/roboarm_move/model/hand_2208'
 frame_path = str(get_project_root()) + '/data_Set/data/'
 test_dir = str(get_project_root())+'/data_Set/data/'
-
+predictions_path = str(get_project_root())+'/data_Set/with_coordinates/predictions.csv'
 count = 0
 
 
@@ -115,40 +115,60 @@ class CommunicationArduinoRaspberry:
         predictions = model.predict(test_x_data_set)
         return test_sample,test_x_data_set, predictions
 
-    def write_predictions_to_csv(self, predictions):
-        with open((str(get_project_root())+'/data_Set/with_coordinates/predictions.csv'), 'w') as f:
+    def write_predictions_to_csv(self, predictions, predictions_path):
+        try:
+            with open(predictions_path, 'w') as f:
             # create the csv writer
-            writer = csv.writer(f)
-            for j in predictions:
-                # write a row to the csv file
-                writer.writerow(j)
+                writer = csv.writer(f)
+                for j in predictions:
+                    # write a row to the csv file
+                    writer.writerow(j)
+        except:
+            raise FileNotFoundError
 
     def calculate_height(self, predictions):
-        height = predictions[0][2] - predictions[0][0]
-        return height
+        try:
+            height = predictions[2] - predictions[0]
+            return height
+        except:
+            raise TypeError("Predictions have wrong type")
 
     def calculate_width(self, predictions):
-        width = predictions[0][3] - predictions[0][1]
-        return width
+        try:
+            width = predictions[3] - predictions[1]
+            return width
+        except:
+            raise TypeError("Predictions have wrong type")
+
+    def read_predictions_csv(self,predictions_path,i):
+        i=0
+
+        x_= [[0] * 4 for i in range(test_sample)]
+
+        try:
+            with open(predictions_path) as File:
+                reader = csv.reader(File)
+                for x in reader:
+                    if x != []:
+                        x_[i] = [float(x[0]),float(x[1]),float(x[2]),float(x[3])]
+                        i+=1
+            return x_
+        except:
+            raise FileNotFoundError("There is no predictions file")
 
     def set_offset(self,current_middle):
-        with open(str(get_project_root()) + '/data_Set/with_coordinates/predictions.csv') as File:
-            reader = csv.reader(File)
-            i = 0
-            for x in reader:
-                if x != []:
-                    print('Predictions = ', predictions[i])
-                    print('Height = ', communication.calculate_height(predictions))
-                    print('Width = ', communication.calculate_width(predictions))
-                    x_ = [float(x[0]),float(x[1]),float(x[2]),float(x[3])]
+        i = 0
+        for i in range(0,test_sample):
+            x_= communication.read_predictions_csv(predictions_path, i)
+            print('Predictions = ', x_[i])
+            print('Height = ', communication.calculate_height(x_[i]))
+            print('Width = ', communication.calculate_width(x_[i]))
+            offset = communication.move_x(x_[i], current_middle)
 
-                    offset = communication.move_x(x_, current_middle)
-                    # ser.write(offset.encode())
-                    # print(offset)
-                    # time.sleep(2)
-                    current_middle = offset
-                    i += 1
-                    print("Current = ", current_middle)
+            current_middle = offset
+            i += 1
+            print("Current = ", current_middle)
+
 
 if __name__ == '__main__':
     i = 0
@@ -163,7 +183,7 @@ if __name__ == '__main__':
     while temp != 1:
         communication.camera_capture()
         test_sample, test_x_data_set, predictions = communication.print_predictions(test_dir)
-        communication.write_predictions_to_csv(predictions)
+        communication.write_predictions_to_csv(predictions,predictions_path)
         test_x_data_set[0].shape
 
 
