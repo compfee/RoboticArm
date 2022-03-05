@@ -79,10 +79,18 @@ class CommunicationArduinoRaspberry:
         print('Connect to ttyACMx')
         try:
             dev = usb.core.find(idVendor=0xfffe, idProduct=0x0001)
+            if dev == None:
+                dev = False
+                return dev
+            else:
+                print('Device not found')
+                dev = False
+                return dev
         except:
             print('Device not found')
             dev = False
             return dev
+
 
     def model_load(self, model_path):
         try:
