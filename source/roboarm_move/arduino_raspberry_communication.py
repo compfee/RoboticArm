@@ -50,7 +50,7 @@ class Camera:
                 print("Make photo frame%04d.jpg" % count)
                 count += 1
 
-        print("count = ",count)
+        print("count = ", count)
         return count
 
 
@@ -81,10 +81,9 @@ class CommunicationArduinoRaspberry:
             elif ttyACMx == 0:
                 return "ttyACM0"
             else:
-                return "None"
-        except ValueError:
-            print('Device not found')
-
+                raise ValueError('Device not found1')
+        except :
+            raise ValueError('Device not found1')
 
 
     def model_load(self, model_path):
