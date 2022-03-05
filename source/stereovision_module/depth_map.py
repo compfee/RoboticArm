@@ -5,7 +5,6 @@ import imutils as imutils
 from matplotlib import pyplot as plt
 import numpy as np
 import json
-from stereovision.calibration import StereoCalibrator
 from stereovision.calibration import StereoCalibration
 import params
 from image_handler import ImageHandler
@@ -36,7 +35,7 @@ class DepthMap(ImageHandler):
 
     def build_depth_map(self, image_path):
         logging.info('Load calibration data...')
-        calibration = StereoCalibration(input_folder='../ress')
+        calibration = StereoCalibration(input_folder='ress')
         rectified_pair = calibration.rectify((self.split_image(image_path)))
         disparity = self.stereo_depth_map(rectified_pair, 256, 15)
         logging.info('Building depth map...')
@@ -56,11 +55,11 @@ class DepthMap(ImageHandler):
         self.__plot(u'Depth map', disparity/255., 3)
         plt.show()
 
-depthMap = DepthMap()
-image = '../scenes/photo.png'
-try:
-    rectified_pair, disparity = depthMap.build_depth_map(image)
-    depthMap.draw_plot(rectified_pair, disparity)
-except:
-    logging.error("Wrong calibration directory")
-    # depthMap.highlight_borders()
+# depthMap = DepthMap()
+# image = '../scenes/photo.png'
+# try:
+#     rectified_pair, disparity = depthMap.build_depth_map(image)
+#     depthMap.draw_plot(rectified_pair, disparity)
+# except:
+#     logging.error("Wrong calibration directory")
+#     # depthMap.highlight_borders()
