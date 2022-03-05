@@ -8,7 +8,6 @@ from roboarm_move.arduino_raspberry_communication import CommunicationArduinoRas
 from roboarm_move.arduino_raspberry_communication import Camera
 from roboarm_move.arduino_raspberry_communication import get_project_root
 from pytest import main
-from compress_images.main import compress_images
 
 communication = CommunicationArduinoRaspberry()
 camera = Camera()
