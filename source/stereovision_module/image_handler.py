@@ -5,10 +5,9 @@ import os
 import cv2
 
 from params import *
-
 __metaclass__ = type
 
-os.chdir('/home/runner/work/RoboticArm/RoboticArm/source/stereovision_module')
+os.chdir('../stereovision_module')
 
 class ImageHandler():
     def __init__(self):
