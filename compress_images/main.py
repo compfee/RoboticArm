@@ -1,6 +1,6 @@
 from PIL import Image
 import os
-
+from roboarm_move.arduino_raspberry_communication import get_project_root
 
 def compress_images(directory=False, quality=30):
     # 1. If there is a directory then change into it, else perform the next operations inside of the
@@ -25,6 +25,6 @@ def compress_images(directory=False, quality=30):
         img.save("Compressed_and_resized_with_function_" + image, optimize=True, quality=quality)
 
 
-subdirectory_path = 'C:\\Users\\vnkuk\\PycharmProjects\\pythonProject'
+subdirectory_path = str(get_project_root())
 print(subdirectory_path)
 compress_images(directory=subdirectory_path)

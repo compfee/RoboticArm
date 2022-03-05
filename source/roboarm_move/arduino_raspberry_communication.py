@@ -83,6 +83,7 @@ class CommunicationArduinoRaspberry:
             dev = usb.core.find(idVendor=0xfffe, idProduct=0x0001)
         except:
             print('Device not found')
+            return ModuleNotFoundError
 
     def model_load(self, model_path):
         try:
@@ -142,9 +143,9 @@ class CommunicationArduinoRaspberry:
 
     def read_predictions_csv(self,predictions_path,i):
         i=0
-
+        test_dir = str(get_project_root()) + '/data_Set/data/'
+        test_sample = len(os.listdir(test_dir))
         x_= [[0] * 4 for i in range(test_sample)]
-
         try:
             with open(predictions_path) as File:
                 reader = csv.reader(File)
@@ -158,16 +159,18 @@ class CommunicationArduinoRaspberry:
 
     def set_offset(self,current_middle):
         i = 0
+        test_dir = str(get_project_root()) + '/data_Set/data/'
+        test_sample = len(os.listdir(test_dir))
         for i in range(0,test_sample):
-            x_= communication.read_predictions_csv(predictions_path, i)
+            x_= self.read_predictions_csv(predictions_path, i)
             print('Predictions = ', x_[i])
-            print('Height = ', communication.calculate_height(x_[i]))
-            print('Width = ', communication.calculate_width(x_[i]))
-            offset = communication.move_x(x_[i], current_middle)
-
+            print('Height = ', self.calculate_height(x_[i]))
+            print('Width = ', self.calculate_width(x_[i]))
+            offset = self.move_x(x_[i], current_middle)
             current_middle = offset
             i += 1
             print("Current = ", current_middle)
+        return current_middle
 
 
 if __name__ == '__main__':

@@ -8,6 +8,7 @@ from roboarm_move.arduino_raspberry_communication import CommunicationArduinoRas
 from roboarm_move.arduino_raspberry_communication import Camera
 from roboarm_move.arduino_raspberry_communication import get_project_root
 from pytest import main
+from compress_images.main import compress_images
 
 communication = CommunicationArduinoRaspberry()
 camera = Camera()
@@ -74,3 +75,23 @@ def test_write_predictions_to_csv():
 
     with pytest.raises(FileNotFoundError):
         communication.write_predictions_to_csv(pred, random_path)
+
+def test_connect_ttyACMx():
+    assert communication.connect_ttyACMx() == ModuleNotFoundError
+
+def test_read_predictions_csv():
+    predictions_path = str(get_project_root()) + '/data_Set/with_coordinates/predictions.csv'
+    random_path = str(get_project_root()) + '/data_Set/frame_path/'
+    test_dir = str(get_project_root()) + '/data_Set/data/'
+
+    pred = [[0.1, 0.2, 0.3, 0.4], [0.0, 0.0, 0.0, 0.0]]
+    test_sample,test_x_data_set, predictions = communication.print_predictions(test_dir)
+    print(communication.read_predictions_csv(predictions_path, 1))
+    assert communication.read_predictions_csv(predictions_path, 1) == pred
+    with pytest.raises(FileNotFoundError):
+        communication.read_predictions_csv(random_path, 1)
+
+def test_set_offset():
+
+    print(communication.set_offset(90))
+
