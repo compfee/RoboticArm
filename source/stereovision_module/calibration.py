@@ -24,8 +24,8 @@ class Calibrator(ImageHandler):
         while photo_counter != TOTAL_PHOTOS:
           photo_counter = photo_counter + 1
           print ('Import pair No ' + str(photo_counter))
-          leftName = '../pairs/left_'+str(photo_counter).zfill(2)+'.png'
-          rightName = '../pairs/right_'+str(photo_counter).zfill(2)+'.png'
+          leftName = 'pairs/left_'+str(photo_counter).zfill(2)+'.png'
+          rightName = 'pairs/right_'+str(photo_counter).zfill(2)+'.png'
           if os.path.isfile(leftName) and os.path.isfile(rightName):
               imgLeft = cv2.imread(leftName,1)
               imgRight = cv2.imread(rightName,1)
@@ -43,13 +43,15 @@ class Calibrator(ImageHandler):
 
     def show_rectified_pair(self, number_of_image):
         calibration = StereoCalibration(input_folder='ress')
-        leftName = '../pairs/left_' + str(number_of_image).zfill(2) + '.png'
-        rightName = '../pairs/right_' + str(number_of_image).zfill(2) + '.png'
+        leftName = 'pairs/left_' + str(number_of_image).zfill(2) + '.png'
+        rightName = 'pairs/right_' + str(number_of_image).zfill(2) + '.png'
         imgLeft = cv2.imread(leftName, 1)
         imgRight = cv2.imread(rightName, 1)
+        if imgRight is None or imgLeft is None:
+            raise IOError("Could not find pairs")
         self.rectified_pair = calibration.rectify((imgLeft, imgRight))
-        cv2.imshow('Left CALIBRATED', self.rectified_pair[0])
-        cv2.imshow('Right CALIBRATED', self.rectified_pair[1])
+        # cv2.imshow('Left CALIBRATED', self.rectified_pair[0])
+        # cv2.imshow('Right CALIBRATED', self.rectified_pair[1])
         cv2.imwrite("rectifyed_left.jpg",self.rectified_pair[0])
         cv2.imwrite("rectifyed_right.jpg",self.rectified_pair[1])
         cv2.waitKey(0)
