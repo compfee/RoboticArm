@@ -23,7 +23,7 @@ class PhotoSequence():
         if countdown < 1 or not(isinstance(countdown, int)):
             raise IOError("Countdows must be more than 1 and be integer")
         photo_counter = 0    # Photo counter
-        wn = cv2.namedWindow('preview', cv2.WINDOW_NORMAL)
+        #wn = cv2.namedWindow('preview', cv2.WINDOW_NORMAL)
 
         print "Starting photo sequence"
         if True:
@@ -51,21 +51,23 @@ class PhotoSequence():
         logging.info("Finished photo sequence")
 
     def pair_images(self):
-        params_file = './src/pf_' + str(self.photo_width) + '_' + str(self.photo_height) + '.txt'
+        params_file = 'src/pf_' + str(self.photo_width) + '_' + str(self.photo_height) + '.txt'
         photo_counter = 0
         hand = ImageHandler()
         # Main pair cut cycle
-        if (os.path.isdir("./pairs") == False):
-            os.makedirs("./pairs")
+        if (os.path.isdir("pairs") == False):
+            os.makedirs("pairs")
         while photo_counter != self.total_photos:
             photo_counter += 1
-            filename = './src/scene_' + str(self.photo_width) + 'x' + str(self.photo_height) + \
+            filename = 'src/scene_' + str(self.photo_width) + 'x' + str(self.photo_height) + \
                        '_' + str(photo_counter) + '.png'
             imgLeft, imgRight = hand.split_image(filename)
-            leftName = './pairs/left_' + str(photo_counter).zfill(2) + '.png'
-            rightName = './pairs/right_' + str(photo_counter).zfill(2) + '.png'
-            cv2.imwrite(leftName, imgLeft)
-            cv2.imwrite(rightName, imgRight)
+            leftName = 'pairs/left_' + str(photo_counter).zfill(2) + '.png'
+            rightName = 'pairs/right_' + str(photo_counter).zfill(2) + '.png'
+            write_stat = cv2.imwrite(leftName, imgLeft)
+            write_stat2 = cv2.imwrite(rightName, imgRight)
+            if (write_stat or write_stat2) is False:
+                raise IOError("can not write pairs")
             logging.info('Pair No ' + str(photo_counter) + ' saved.')
 
         logging.info('End cycle')

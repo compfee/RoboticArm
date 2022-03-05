@@ -6,7 +6,8 @@ from photo_sequence import PhotoSequence
 
 import params
 
-if __name__ == "__main__":
+
+def parse_args(args):
     parser = ArgumentParser(description='Application to calibrate stereopair and to build depth map')
     parser.add_argument("-c", "--calib", action='store_true',
                         help="choose calibration mode")
@@ -15,7 +16,10 @@ if __name__ == "__main__":
                         help="build depth map")
     parser.add_argument("-p", "--parameters", action='store_true',
                         help="correct parameters for depth map")
-    args = parser.parse_args()
+    return parser.parse_args(args), parser
+
+if __name__ == "__main__":
+    args, parser = parse_args(sys.argv[1:])
     if args.calib:
         calib = Calibrator()
         calib.take_photos()

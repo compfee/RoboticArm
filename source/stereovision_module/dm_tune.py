@@ -63,7 +63,7 @@ def save_map_settings(event):
                          'minDisparity': MDS, 'numberOfDisparities': NOD, 'textureThreshold': TTH, \
                          'uniquenessRatio': UR, 'speckleRange': SR, 'speckleWindowSize': SPWS}, \
                         sort_keys=True, indent=4, separators=(',', ':'))
-    fName = os.getcwd() + '/3dmap_set.txt'
+    fName = '3dmap_set.txt'
     f = open(str(fName), 'w')
     f.write(result)
     f.close()
@@ -73,7 +73,7 @@ def save_map_settings(event):
 def load_map_settings( event ):
     global SWS, PFS, PFC, MDS, NOD, TTH, UR, SR, SPWS, loading_settings
     loading_settings = 1
-    fName = os.getcwd() + '/3dmap_set.txt'
+    fName = '3dmap_set.txt'
     print('Loading parameters from file...')
     buttonl.label.set_text ("Loading...")
     try:
@@ -112,7 +112,7 @@ def update(val):
     if ( loading_settings==0 ):
         logging.info('Rebuilding depth map')
         depthMap = DepthMap()
-        image = '../scenes/photo.png'
+        image = 'scenes/photo.png'
         rectified_pair, _ = depthMap.build_depth_map(image)
         disparity = read_parameters(rectified_pair)
         dmObject.set_data(disparity)
@@ -121,7 +121,7 @@ def update(val):
         plt.draw()
 
 depthMap = DepthMap()
-image = '../scenes/photo.png'
+image = 'scenes/photo.png'
 rectified_pair, _ = depthMap.build_depth_map(image)
 disparity = read_parameters(rectified_pair)
 
