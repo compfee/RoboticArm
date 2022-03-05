@@ -25,8 +25,6 @@ test_dir = str(get_project_root())+'/data_Set/data/'
 predictions_path = str(get_project_root())+'/data_Set/with_coordinates/predictions.csv'
 count = 0
 
-
-
 class Camera:
     def __init__(self):
         print("Init camera")
@@ -83,7 +81,8 @@ class CommunicationArduinoRaspberry:
             dev = usb.core.find(idVendor=0xfffe, idProduct=0x0001)
         except:
             print('Device not found')
-            return ModuleNotFoundError
+            dev = False
+            return dev
 
     def model_load(self, model_path):
         try:
@@ -172,7 +171,6 @@ class CommunicationArduinoRaspberry:
             print("Current = ", current_middle)
         return current_middle
 
-
 if __name__ == '__main__':
     i = 0
     temp = 0
@@ -188,10 +186,7 @@ if __name__ == '__main__':
         test_sample, test_x_data_set, predictions = communication.print_predictions(test_dir)
         communication.write_predictions_to_csv(predictions,predictions_path)
         test_x_data_set[0].shape
-
-
         communication.set_offset(current_middle)
-
         temp += 1
 
 
