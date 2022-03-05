@@ -76,7 +76,11 @@ def test_write_predictions_to_csv():
         communication.write_predictions_to_csv(pred, random_path)
 
 def test_connect_ttyACMx():
-    assert communication.connect_ttyACMx() == False
+
+    assert communication.connect_ttyACMx(1) == "ttyACM1"
+    assert communication.connect_ttyACMx(0) == "ttyACM0"
+    assert communication.connect_ttyACMx(6) == "None"
+
 
 def test_read_predictions_csv():
     predictions_path = str(get_project_root()) + '/data_Set/with_coordinates/predictions.csv'
@@ -91,6 +95,5 @@ def test_read_predictions_csv():
         communication.read_predictions_csv(random_path, 1)
 
 def test_set_offset():
-
-    print(communication.set_offset(90))
+    assert communication.set_offset(90) == 77
 

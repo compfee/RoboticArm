@@ -75,21 +75,17 @@ class CommunicationArduinoRaspberry:
 
         return offset
 
-    def connect_ttyACMx(self):
-        print('Connect to ttyACMx')
+    def connect_ttyACMx(self, ttyACMx):
         try:
-            dev = usb.core.find(idVendor=0xfffe, idProduct=0x0001)
-            if dev == None:
-                dev = False
-                return dev
+            if ttyACMx == 1:
+                return "ttyACM1"
+            elif ttyACMx == 0:
+                return "ttyACM0"
             else:
-                print('Device not found')
-                dev = False
-                return dev
-        except:
+                return "None"
+        except ValueError:
             print('Device not found')
-            dev = False
-            return dev
+
 
 
     def model_load(self, model_path):
@@ -185,7 +181,7 @@ if __name__ == '__main__':
     current_middle = 90
     camera = Camera()
     communication = CommunicationArduinoRaspberry()
-    communication.connect_ttyACMx()
+    communication.connect_ttyACMx(1)
     communication.model_load(model_path)
     camera.set_camera((2592, 1944), 180)
 
