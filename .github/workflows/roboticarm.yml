@@ -5,7 +5,7 @@ name: RoboticArm
 
 on:
   push:
-    branches: [ main, kuksov, stereovision ]
+    branches: [ testing_roboarm, kuxov, stereovision ]
   pull_request:
     branches: [ main ]
 
