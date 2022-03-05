@@ -75,8 +75,8 @@ def test_write_predictions_to_csv():
     with pytest.raises(FileNotFoundError):
         communication.write_predictions_to_csv(pred, random_path)
 
-def test_connect_ttyACMx():
-    assert communication.connect_ttyACMx() == ModuleNotFoundError
+# def test_connect_ttyACMx():
+#     assert communication.connect_ttyACMx() == ModuleNotFoundError
 
 def test_read_predictions_csv():
     predictions_path = str(get_project_root()) + '/data_Set/with_coordinates/predictions.csv'
