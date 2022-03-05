@@ -26,7 +26,7 @@ def test_predictions_checking():
 def test_set_camera():
     resolution = (600, 600)
     rotation = 90
-    assert camera.set_camera(resolution, rotation) == ((600, 600),90)
+    assert camera.set_camera(resolution, rotation) == ((600, 600), 90)
 
 def test_capture():
     path = str(get_project_root())+'/source/data_Set/frame_path/'
@@ -52,8 +52,8 @@ def test_calculate_height():
         communication.calculate_height(pred)
 
 def test_calculate_width():
-    predictions = [0.1,0.2,0.3,0.4]
-    pred = [0.1,0.2,0.3,0.4],[0,0,0,0]
+    predictions = [0.1, 0.2, 0.3, 0.4]
+    pred = [0.1, 0.2, 0.3, 0.4],[0, 0, 0, 0]
     w = pred[0][2] - pred[0][0]
     assert communication.calculate_height(predictions) == w
     with pytest.raises(TypeError):
@@ -75,12 +75,15 @@ def test_write_predictions_to_csv():
     with pytest.raises(FileNotFoundError):
         communication.write_predictions_to_csv(pred, random_path)
 
-def test_connect_ttyACMx():
-
+def test_connect_ttyACM1():
     assert communication.connect_ttyACMx(1) == "ttyACM1"
-    assert communication.connect_ttyACMx(0) == "ttyACM0"
-    assert communication.connect_ttyACMx(6) == "None"
 
+def test_connect_ttyACM0():
+    assert communication.connect_ttyACMx(0) == "ttyACM0"
+
+def test_connect_ttyACMx():
+    with pytest.raises(ValueError):
+        communication.connect_ttyACMx(6)
 
 def test_read_predictions_csv():
     predictions_path = str(get_project_root()) + '/source/data_Set/with_coordinates/predictions.csv'
