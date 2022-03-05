@@ -12,22 +12,21 @@ import usb.core
 import usb.util
 import time
 import os
-
-def get_project_root() -> Path:
-    return Path(__file__).parent.parent
+from utils import get_project_root
 
 WIDTH_ANGLE = 62
 HEIGH_ANGLE = 48
 
-model_path = str(get_project_root()) + '/roboarm_move/model/hand_2208'
-frame_path = str(get_project_root()) + '/data_Set/data/'
-test_dir = str(get_project_root())+'/data_Set/data/'
-predictions_path = str(get_project_root())+'/data_Set/with_coordinates/predictions.csv'
+model_path = str(get_project_root()) + '/source/roboarm_move/model/hand_2208'
+frame_path = str(get_project_root()) + '/source/data_Set/data/'
+test_dir = str(get_project_root())+'/source/data_Set/data/'
+predictions_path = str(get_project_root())+'/source/data_Set/with_coordinates/predictions.csv'
 count = 0
 
 class Camera:
     def __init__(self):
         print("Init camera")
+
         self.resolution = (2592, 1944)
         self.rotation = 180
         self.filesCount = self.capture(test_dir)
@@ -146,7 +145,7 @@ class CommunicationArduinoRaspberry:
 
     def read_predictions_csv(self,predictions_path,i):
         i=0
-        test_dir = str(get_project_root()) + '/data_Set/data/'
+        test_dir = str(get_project_root()) + '/source/data_Set/data/'
         test_sample = len(os.listdir(test_dir))
         x_= [[0] * 4 for i in range(test_sample)]
         try:
@@ -162,7 +161,7 @@ class CommunicationArduinoRaspberry:
 
     def set_offset(self,current_middle):
         i = 0
-        test_dir = str(get_project_root()) + '/data_Set/data/'
+        test_dir = str(get_project_root()) + '/source/data_Set/data/'
         test_sample = len(os.listdir(test_dir))
         for i in range(0,test_sample):
             x_= self.read_predictions_csv(predictions_path, i)
