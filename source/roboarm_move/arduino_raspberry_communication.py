@@ -12,7 +12,8 @@ import usb.core
 import usb.util
 import time
 import os
-from utils import get_project_root
+
+from source.utils import get_project_root
 
 WIDTH_ANGLE = 62
 HEIGH_ANGLE = 48
