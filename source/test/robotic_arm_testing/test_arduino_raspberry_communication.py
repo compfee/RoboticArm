@@ -4,10 +4,10 @@ import warnings
 import time
 import csv
 from tensorflow import keras
-from source.roboarm_move.arduino_raspberry_communication import CommunicationArduinoRaspberry
-from source.roboarm_move.arduino_raspberry_communication import Camera
+from roboarm_move.arduino_raspberry_communication import CommunicationArduinoRaspberry
+from roboarm_move.arduino_raspberry_communication import Camera
 from pytest import main
-from source.utils import get_project_root
+from utils import get_project_root
 
 communication = CommunicationArduinoRaspberry()
 camera = Camera()
