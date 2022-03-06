@@ -54,4 +54,4 @@ plt.legend(loc='lower right')
 
 test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
 
-print(test_acc)sa
+print(test_acc)
