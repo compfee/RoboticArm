@@ -12,13 +12,12 @@ import usb.core
 import usb.util
 import time
 import os
-
-from source.utils import get_project_root
+from utils import get_project_root
 
 WIDTH_ANGLE = 62
 HEIGH_ANGLE = 48
 
-model_path = str(get_project_root()) + '/source/roboarm_move/model/hand_2208'
+model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/hand_2208'
 frame_path = str(get_project_root()) + '/source/data_Set/data/'
 test_dir = str(get_project_root())+'/source/data_Set/data/'
 predictions_path = str(get_project_root())+'/source/data_Set/with_coordinates/predictions.csv'
