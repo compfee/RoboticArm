@@ -4,8 +4,8 @@ import warnings
 import time
 import csv
 from tensorflow import keras
-from roboarm_movement_module.arduino_raspberry_communication import Camera
-from roboarm_movement_module.arduino_raspberry_communication import CommunicationArduinoRaspberry
+from arduino_raspberry_communication import Camera
+from arduino_raspberry_communication import CommunicationArduinoRaspberry
 from pytest import main
 from utils import get_project_root
 
