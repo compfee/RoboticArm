@@ -24,6 +24,7 @@ test_dir = str(get_project_root())+'/source/data_Set/data/'
 predictions_path = str(get_project_root())+'/source/data_Set/with_coordinates/predictions.csv'
 count = 0
 
+
 class CommunicationArduinoRaspberry:
     def __init__(self):
         print("Init")
