@@ -2,7 +2,7 @@ import logging
 import os
 import time
 import cv2
-from arduino_raspberry_communication import Camera
+from camera_module.camera import Camera
 from image_handler import ImageHandler
 
 
