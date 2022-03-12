@@ -2,7 +2,7 @@ import logging
 import os
 import time
 import cv2
-from source.camera_module.camera import Camera
+from camera import Camera
 from image_handler import ImageHandler
 
 
