@@ -21,7 +21,8 @@ class PhotoSequence():
         photo_counter = 0    # Photo counter
         #wn = cv2.namedWindow('preview', cv2.WINDOW_NORMAL)
 
-        print("Starting photo sequence")
+        print ("Starting photo sequence")
+
         if True:
             self.camera = Camera()
             self.camera.resolution = (self.photo_width, self.photo_height)
