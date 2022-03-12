@@ -12,7 +12,13 @@ class Camera:
         self.resolution = (2592, 1944)
         self.rotation = 180
         self.filesCount = self.capture(test_dir)
-
+        self.annotate_text_size = 160
+        self.annotate_background = 'red'
+        self.hflip = True
+    class preview():
+        def __init__(self):
+            self.fullscreen = False
+            self.window = (0,0, 1028 /2, 640 /2)
     def set_camera(self, resolution, rotation):
         print("Set up camera")
         self.resolution = resolution
