@@ -13,6 +13,7 @@ import usb.util
 import time
 import os
 from utils import get_project_root
+from camera_module.camera import Camera
 
 WIDTH_ANGLE = 62
 HEIGH_ANGLE = 48
@@ -22,49 +23,6 @@ frame_path = str(get_project_root()) + '/source/data_Set/data/'
 test_dir = str(get_project_root())+'/source/data_Set/data/'
 predictions_path = str(get_project_root())+'/source/data_Set/with_coordinates/predictions.csv'
 count = 0
-
-class Camera:
-    def __init__(self):
-        print("Init camera")
-
-        self.resolution = (2592, 1944)
-        self.rotation = 180
-        self.filesCount = self.capture(test_dir)
-        self.preview.fullscreen = False
-        self.annotate_text_size = 160
-        self.annotate_background = 'red'
-        self.hflip = True
-
-    class preview():
-        def __init__(self):
-            self.fullscreen = False
-            self.window = (0,0,1028/2, 640/2)
-
-    def set_camera(self, resolution, rotation):
-        print("Set up camera")
-        self.resolution = resolution
-        self.rotation = rotation
-        return resolution, rotation
-
-    def start_preview(self):
-        print("Start preview")
-
-    def stop_preview(self):
-        print("Stop preview")
-
-    def capture(self, file_path):
-        count = 0
-        for base, dirs, files in os.walk(file_path):
-            for Files in files:
-                print("Make photo frame%04d.jpg" % count)
-                count += 1
-
-        print("count = ", count)
-        return count
-
-
-    def sleep(self, sec):
-        time.sleep(sec)
 
 class CommunicationArduinoRaspberry:
     def __init__(self):
@@ -104,7 +62,7 @@ class CommunicationArduinoRaspberry:
             print("Cannot load model")
             raise FileNotFoundError
 
-    def camera_capture(self):
+    def camera_capture(self, test_dir):
         camera = Camera()
         camera.start_preview()
         camera.sleep(0.001)
@@ -193,9 +151,9 @@ if __name__ == '__main__':
     camera.set_camera((2592, 1944), 180)
 
     while temp != 1:
-        communication.camera_capture()
+        communication.camera_capture(test_dir)
         test_sample, test_x_data_set, predictions = communication.print_predictions(test_dir)
-        communication.write_predictions_to_csv(predictions,predictions_path)
+        communication.write_predictions_to_csv(predictions, predictions_path)
         test_x_data_set[0].shape
         communication.set_offset(current_middle)
         temp += 1
