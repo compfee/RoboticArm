@@ -1,10 +1,8 @@
 import logging
 import os
 import time
-
-# import picamera
 import cv2
-
+from arduino_raspberry_communication import Camera
 from image_handler import ImageHandler
 
 
@@ -23,16 +21,16 @@ class PhotoSequence():
         photo_counter = 0    # Photo counter
         #wn = cv2.namedWindow('preview', cv2.WINDOW_NORMAL)
 
-        print "Starting photo sequence"
+        print("Starting photo sequence")
         if True:
-        #with picamera.PiCamera() as camera:
-            #camera.resolution = (self.photo_width, self.photo_height)
-            #camera.start_preview()
-            #camera.preview.fullscreen = False
-            #camera.preview.window = (0,0,self.photo_width/2,self.photo_height/2)
-            #camera.annotate_text_size = 160
-            #camera.annotate_background = picamera.Color('red')
-            #camera.hflip = True
+            self.camera = Camera()
+            self.camera.resolution = (self.photo_width, self.photo_height)
+            self.camera.start_preview()
+            self.camera.preview.fullscreen = False
+            self.camera.preview.window = (0,0,self.photo_width/2,self.photo_height/2)
+            self.camera.annotate_text_size = 160
+            self.camera.annotate_background ='red'
+            self.camera.hflip = True
             while photo_counter != self.total_photos:
               photo_counter = photo_counter + 1
               filename = 'scene_'+str(self.photo_width)+'x'+str(self.photo_height)+'_'+\
@@ -43,7 +41,7 @@ class PhotoSequence():
                 cntr-=1
                 time.sleep(1)
               #camera.annotate_text = ''
-              #camera.capture (filename, use_video_port=True)
+              #camera.capture(filename, use_video_port=True)
               logging.info(' ['+str(photo_counter)+' of '+str(self.total_photos)+'] '+filename)
 
         logging.info("Finished photo sequence")
@@ -69,3 +67,10 @@ class PhotoSequence():
             logging.info('Pair No ' + str(photo_counter) + ' saved.')
 
         logging.info('End cycle')
+
+    def get_camera_resolution(self):
+        return self.camera.resolution
+
+seq = PhotoSequence()
+seq.take_photos()
+print(seq.get_camera_resolution())
