@@ -29,7 +29,7 @@ def compress_images(directory=False, quality=30):
 
         # 5. Compress every image and save it with a new name:
         img.save(str(get_project_root()) + "/source/compress_images_module/compressed"
-                                           "/source/Compressed_and_resized_with_function_" + image, optimize=True,
+                                           "/Compressed_and_resized_with_function_" + image, optimize=True,
                  uality=quality)
 
 
