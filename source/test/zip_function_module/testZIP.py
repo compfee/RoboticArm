@@ -1,3 +1,5 @@
+import os
+
 import pytest
 import zipfile
 
@@ -26,3 +28,19 @@ def test_zip_function():
 def test_zip_func_is_empty():
     with pytest.raises(Exception):
         zip_func(str(get_project_root()) + "/source/test/zip_function_module")
+
+
+def test_zip_function_is_compressed():
+    orig_sum = 0
+    originals_path = str(get_project_root()) + '/source/zip_function_module/dataset'
+
+    zip_func()
+
+    for path, dirs, files in os.walk(originals_path):
+        for f in files:
+            fp = os.path.join(path, f)
+            orig_sum += os.path.getsize(fp)
+
+    comp_sum = os.stat(str(get_project_root()) + "/source/zip_function_module/archive.zip").st_size
+
+    assert comp_sum < orig_sum
