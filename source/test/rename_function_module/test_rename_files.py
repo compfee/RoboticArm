@@ -11,7 +11,7 @@ def test_rename_files():
 
     rename_files()
 
-    images_path = str(get_project_root()) + "\\source\\rename_function_module\\pics"
+    images_path = str(get_project_root()) + "/source/rename_function_module/pics"
     image_list = os.listdir(images_path)
     for i, image in enumerate(image_list):
         bool &= image.endswith('nh' + str(i) + '.jpg')
