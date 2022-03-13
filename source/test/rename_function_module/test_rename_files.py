@@ -16,3 +16,8 @@ def test_rename_files():
     for i, image in enumerate(image_list):
         bool &= image.endswith('nh' + str(i) + '.jpg')
     assert bool == True
+
+
+def test_rename_files_ex():
+    with pytest.raises(Exception):
+        rename_files(directory=str(get_project_root()) + "/source/rename_function_module")

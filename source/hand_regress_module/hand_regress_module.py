@@ -14,7 +14,7 @@ from keras.layers import Dropout
 from keras.models import load_model
 
 
-from source.utils import get_project_root
+from utils import get_project_root
 
 
 train_label_file = str(get_project_root()) + "/source/hand_regress_module/dataSet/coordi_train.csv"
