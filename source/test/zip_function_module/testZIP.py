@@ -3,8 +3,8 @@ import os
 import pytest
 import zipfile
 
-from source.zip_function_module.zip_function import zip_func
-from source.utils import get_project_root
+from zip_function_module.zip_function import zip_func
+from utils import get_project_root
 import filecmp
 
 
