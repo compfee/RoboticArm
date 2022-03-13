@@ -1,8 +1,7 @@
 import os
 from pathlib import Path
 
-
-from source.utils import get_project_root
+from utils import get_project_root
 
 
 def rename_files():
@@ -15,6 +14,4 @@ def rename_files():
             dst = images_path + '/' + "nh" + str(i) + '.jpg'
             os.rename(src, dst)
             print(i)
-
-
 

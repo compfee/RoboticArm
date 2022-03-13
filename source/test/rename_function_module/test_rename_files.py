@@ -2,8 +2,8 @@ from pathlib import Path
 import os
 import pytest
 
-from source.rename_function_module.rename import rename_files
-from source.utils import get_project_root
+from rename_function_module.rename import rename_files
+from utils import get_project_root
 
 
 def test_rename_files():
