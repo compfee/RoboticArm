@@ -35,4 +35,4 @@ jobs:
 
     - name: Test with pytest
       run: |
-          pytest --ignore-glob=source/test/stereovision_module
+          pytest --ignore-glob=source/test/stereovision_module --ignore-glob=source/test/fine_tuning_module
