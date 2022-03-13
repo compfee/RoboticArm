@@ -3,4 +3,4 @@ import pytest
 
 
 def test_utils():
-    assert str(get_project_root()).endswith('/source')
+    assert str(get_project_root()).endswith('RoboticArm') == True
