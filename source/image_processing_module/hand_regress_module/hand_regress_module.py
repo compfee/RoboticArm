@@ -18,9 +18,9 @@ from utils import get_project_root
 
 
 train_label_file = str(get_project_root()) + "/source/image_processing_module/hand_regress_module/dataSet" \
-                                             "/coordi_train.csv "
+                                             "/coordi_train.csv"
 test_label_file = str(get_project_root()) + "/source/image_processing_module/hand_regress_module/dataSet/coordi_test" \
-                                            ".csv "
+                                            ".csv"
 
 
 class GetDataSet:
