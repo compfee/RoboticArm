@@ -4,7 +4,7 @@ from pathlib import Path
 from utils import get_project_root
 
 
-def rename_files(directory=str(get_project_root()) + "/source/rename_function_module/pics"):
+def rename_files(directory=str(get_project_root()) + "/source/image_processing_module/rename_function_module/pics"):
     images_path = directory
     image_list = os.listdir(images_path)
     count = 0

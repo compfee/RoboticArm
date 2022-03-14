@@ -17,8 +17,10 @@ from keras.models import load_model
 from utils import get_project_root
 
 
-train_label_file = str(get_project_root()) + "/source/hand_regress_module/dataSet/coordi_train.csv"
-test_label_file = str(get_project_root()) + "/source/hand_regress_module/dataSet/coordi_test.csv"
+train_label_file = str(get_project_root()) + "/source/image_processing_module/hand_regress_module/dataSet" \
+                                             "/coordi_train.csv"
+test_label_file = str(get_project_root()) + "/source/image_processing_module/hand_regress_module/dataSet/coordi_test" \
+                                            ".csv"
 
 
 class GetDataSet:
