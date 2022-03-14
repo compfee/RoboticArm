@@ -10,13 +10,13 @@ import os
 import shutil
 
 
-def test_preparation_with_existing_foulder():
+def test_preparation_with_existing_folder():
 
         primalFolderPath = str(get_project_root())+'/source/rendering_module/'
         assert preparation(primalFolderPath) == True
 
 
-def test_preparation_without_existing_foulder():
+def test_preparation_without_existing_folder():
 
         primalFolderPath = str(get_project_root())+'/source/rendering_module/no_results'
         shutil.rmtree(primalFolderPath + str('/results'))
