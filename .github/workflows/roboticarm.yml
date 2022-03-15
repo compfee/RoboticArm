@@ -35,4 +35,4 @@ jobs:
 
     - name: Test with pytest
       run: |
-          pytest --ignore-glob=source/test/stereovision_module --ignore-glob=source/test/image_processing_module/test_tutorial.py --ignore-glob=source/test/image_processing_module/test_fine_tuning.py
+          pytest --ignore-glob=source/test/stereovision_module --ignore-glob=source/test/image_processing_module/test_tutorial.py --ignore-glob=source/test/image_processing_module/test_fine_tuning.py --ignore-glob=source/test/image_processing_module/test_compress_images.py
