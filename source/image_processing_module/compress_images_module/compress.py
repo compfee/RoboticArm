@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 
-from utils import get_project_root
+from source.utils import get_project_root
 
 
 def compress_images(directory=False, quality=30):

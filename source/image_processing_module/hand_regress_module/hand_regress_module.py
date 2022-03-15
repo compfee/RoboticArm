@@ -14,7 +14,7 @@ from keras.layers import Dropout
 from keras.models import load_model
 
 
-from utils import get_project_root
+from source.utils import get_project_root
 
 
 train_label_file = str(get_project_root()) + "/source/image_processing_module/hand_regress_module/dataSet" \

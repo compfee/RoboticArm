@@ -6,8 +6,8 @@ from PIL import Image
 import shutil
 from random import randrange
 
-from image_processing_module.compress_images_module.compress import compress_images
-from utils import get_project_root
+from source.image_processing_module.compress_images_module.compress import compress_images
+from source.utils import get_project_root
 
 
 def clean_folder(directory=str(get_project_root()) + '/source/image_processing_module/compress_images_module/pics'):
