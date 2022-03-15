@@ -3,18 +3,21 @@ import os
 import pytest
 import zipfile
 
-from image_processing_module.zip_function_module.zip_function import zip_func
-from utils import get_project_root
+from source.image_processing_module.zip_function_module.zip_function import zip_func
+from source.utils import get_project_root
 import filecmp
 
 
 def test_zip_function():
     zip_func()
-    zip_file = zipfile.ZipFile(str(get_project_root()) + "/source/image_processing_module/zip_function_module/archive.zip")
+    zip_file = zipfile.ZipFile(str(get_project_root()) + "/source/image_processing_module/zip_function_module/archive"
+                                                         ".zip")
     zip_file.extractall(str(get_project_root()) + "/source/image_processing_module/zip_function_module/extracted")
     zip_file.close()
-    assert ((filecmp.cmp(str(get_project_root()) + "/source/image_processing_module/zip_function_module/extracted/coordi_test.csv",
-                         str(get_project_root()) + "/source/image_processing_module/zip_function_module/dataset/coordi_test.csv")) and (
+    assert ((filecmp.cmp(str(get_project_root()) + "/source/image_processing_module/zip_function_module/extracted"
+                                                   "/coordi_test.csv",
+                         str(get_project_root()) + "/source/image_processing_module/zip_function_module/dataset"
+                                                   "/coordi_test.csv")) and (
                 filecmp.cmp(str(get_project_root()) +
                             "/source/image_processing_module/zip_function_module"
                             "/extracted"

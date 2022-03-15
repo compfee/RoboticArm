@@ -12,8 +12,8 @@ import usb.core
 import usb.util
 import time
 import os
-from utils import get_project_root
-from camera_module.camera import Camera
+from source.utils import get_project_root
+from source.camera_module.camera import Camera
 
 WIDTH_ANGLE = 62
 HEIGH_ANGLE = 48

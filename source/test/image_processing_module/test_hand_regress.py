@@ -1,6 +1,6 @@
 import pytest
 
-from image_processing_module.hand_regress_module.hand_regress_module import GetDataSet
+from source.image_processing_module.hand_regress_module.hand_regress_module import GetDataSet
 
 
 def test_DATASET():

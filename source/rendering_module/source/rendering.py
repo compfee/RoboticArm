@@ -1,7 +1,9 @@
 import os, sys
 
 import random, math
-from roboarm_movement_module.arduino_raspberry_communication import CommunicationArduinoRaspberry
+from source.roboarm_movement_module.arduino_raspberry_communication import CommunicationArduinoRaspberry
+
+
 class Scene:
     resolution_x = 1280
     resolution_y = 720
@@ -18,7 +20,7 @@ class Scene:
             if color_mode == 'RGBA':
                 file_format = 'PNG'
                 color_depth = color_depth['RGBA']
-                resolution = (1280,720)
+                resolution = (1280, 720)
                 film_transparent = True
             elif color_mode == 'HSVA':
                 file_format = 'JPG'
@@ -37,14 +39,16 @@ class Scene:
     def load_background_images(self, path):
         print('Loading data')
         background_images = [file for file in os.listdir(path) if
-                         os.path.isfile(os.path.join(path, file))]
+                             os.path.isfile(os.path.join(path, file))]
         return background_images
+
 
 class Object:
     materials = ['metall', 'plastic', 'wood', 'rock', 'marble', 'concrete', 'snow']
     show_material = False
     name = 'socket'
-    socket_type = { 'Socket_Type_1' : 0, 'Socket_Type_2' : 1, 'Socket_Type_3' : 2}
+    socket_type = {'Socket_Type_1': 0, 'Socket_Type_2': 1, 'Socket_Type_3': 2}
+
     def set_name(self, name):
         if name.isinstance(name, str):
             self.name = name
