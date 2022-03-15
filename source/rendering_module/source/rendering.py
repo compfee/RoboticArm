@@ -1,7 +1,7 @@
 import os, sys
 
 import random, math
-from roboarm_movement_module.arduino_raspberry_communication import CommunicationArduinoRaspberry
+from source.roboarm_movement_module.arduino_raspberry_communication import CommunicationArduinoRaspberry
 class Scene:
     resolution_x = 1280
     resolution_y = 720
