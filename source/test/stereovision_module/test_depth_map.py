@@ -1,7 +1,7 @@
 import os
 
 import pytest
-from source.stereovision.calibration import StereoCalibration
+from source.stereovision_module.calibration import StereoCalibration
 from source.stereovision_module.depth_map import DepthMap
 
 os.chdir('/home/runner/work/RoboticArm/RoboticArm/source/stereovision_module')
