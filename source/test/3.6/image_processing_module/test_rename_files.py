@@ -1,8 +1,8 @@
 import os
 import pytest
 
-from source.image_processing_module.rename_function_module.rename import rename_files
-from source.utils import get_project_root
+from image_processing_module.rename_function_module.rename import rename_files
+from utils import get_project_root
 
 
 def test_rename_files():

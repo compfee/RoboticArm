@@ -1,6 +1,6 @@
 import os
 
-from source.utils import get_project_root
+from utils import get_project_root
 
 
 def rename_files(directory=str(get_project_root()) + "/source/image_processing_module/rename_function_module/pics"):

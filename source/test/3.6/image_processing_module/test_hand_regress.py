@@ -1,4 +1,4 @@
-from source.image_processing_module.hand_regress_module.hand_regress_module import GetDataSet
+from image_processing_module.hand_regress_module.hand_regress_module import GetDataSet
 
 
 def test_DATASET():

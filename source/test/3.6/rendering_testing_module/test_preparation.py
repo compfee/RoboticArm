@@ -1,5 +1,5 @@
-from source.rendering_module.source.preparation import preparation, check_dir
-from source.utils import get_project_root
+from rendering_module.source.preparation import preparation, check_dir
+from utils import get_project_root
 import shutil
 
 

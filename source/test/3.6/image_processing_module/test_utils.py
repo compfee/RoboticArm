@@ -1,4 +1,4 @@
-from source.utils import get_project_root
+from utils import get_project_root
 
 
 def test_utils():

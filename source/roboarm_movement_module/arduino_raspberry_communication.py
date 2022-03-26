@@ -7,8 +7,8 @@ from tensorflow import keras
 import csv
 # from picamera import PiCamera
 import os
-from source.utils import get_project_root
-from source.camera_module.camera import Camera
+from utils import get_project_root
+from camera_module.camera import Camera
 
 WIDTH_ANGLE = 62
 HEIGH_ANGLE = 48

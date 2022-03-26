@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from source.image_processing_module.fine_tuning_module.tutor import Network
+from image_processing_module.fine_tuning_module.tutor import Network
 
 nn = Network
 Network.data_preprocessing(nn)

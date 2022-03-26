@@ -2,9 +2,9 @@ import pytest
 import numpy as np
 import time
 import csv
-from source.camera_module.camera import Camera
-from source.roboarm_movement_module.arduino_raspberry_communication import CommunicationArduinoRaspberry
-from source.utils import get_project_root
+from camera_module.camera import Camera
+from roboarm_movement_module.arduino_raspberry_communication import CommunicationArduinoRaspberry
+from utils import get_project_root
 
 
 communication = CommunicationArduinoRaspberry()
