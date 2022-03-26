@@ -1,6 +1,5 @@
 import os
 
-import pytest
 from stereovision.calibration import StereoCalibration
 from source.stereovision_module.depth_map import DepthMap
 

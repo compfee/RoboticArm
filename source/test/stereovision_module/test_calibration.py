@@ -1,7 +1,4 @@
 import os
-from os import path
-
-import pytest
 
 import source.stereovision_module.params as params
 from source.stereovision_module.calibration import Calibrator

@@ -3,14 +3,9 @@
 from PIL import Image
 
 import numpy as np
-import os
 from tensorflow import keras
 import csv
 # from picamera import PiCamera
-from pathlib import Path
-import usb.core
-import usb.util
-import time
 import os
 from source.utils import get_project_root
 from source.camera_module.camera import Camera

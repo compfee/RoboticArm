@@ -1,11 +1,6 @@
-import matplotlib.pyplot as plt
-import numpy as np
-import os
-import math
 import tensorflow as tf
-import pytest
 
-from source.image_processing_module.fine_tuning_module.tutor import _URL, path_to_zip, PATH, train_dir, validation_dir, Network
+from source.image_processing_module.fine_tuning_module.tutor import Network
 
 nn = Network
 Network.data_preprocessing(nn)

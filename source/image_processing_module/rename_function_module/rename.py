@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 
 from source.utils import get_project_root
 

@@ -1,6 +1,5 @@
 import os
 
-import pytest
 from source.stereovision_module.photo_sequence import PhotoSequence
 
 os.chdir('/home/runner/work/RoboticArm/RoboticArm/source/stereovision_module')

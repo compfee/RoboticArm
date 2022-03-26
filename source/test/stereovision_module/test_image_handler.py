@@ -1,4 +1,3 @@
-import pytest
 from source.stereovision_module.image_handler import ImageHandler
 import os
 import cv2

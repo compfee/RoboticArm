@@ -1,5 +1,4 @@
 from source.utils import get_project_root
-import pytest
 
 
 def test_utils():

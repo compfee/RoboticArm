@@ -1,12 +1,11 @@
 import pytest
 import numpy as np
-import warnings
 import time
 import csv
-from tensorflow import keras
-from source.roboarm_movement_module.arduino_raspberry_communication import Camera
+from source.camera_module.camera import Camera
 from source.roboarm_movement_module.arduino_raspberry_communication import CommunicationArduinoRaspberry
 from source.utils import get_project_root
+
 
 communication = CommunicationArduinoRaspberry()
 camera = Camera()
