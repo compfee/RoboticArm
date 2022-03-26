@@ -8,7 +8,7 @@ import csv
 # from picamera import PiCamera
 import os
 from utils import get_project_root
-from source.camera_module.camera import Camera
+from camera_module.camera import Camera
 
 WIDTH_ANGLE = 62
 HEIGH_ANGLE = 48

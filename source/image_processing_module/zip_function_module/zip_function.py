@@ -1,7 +1,7 @@
 import os
 import zipfile
 
-from source.test import get_project_root
+from source import get_project_root
 
 
 def zip_func(direction=str(get_project_root()) + "/source/image_processing_module/zip_function_module/dataset"):
