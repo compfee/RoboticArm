@@ -5,7 +5,7 @@ name: stereovision
 
 on:
   push:
-    branches: [ main, stereovision ]
+    branches: [ stereovision ]
 
 
 jobs:
