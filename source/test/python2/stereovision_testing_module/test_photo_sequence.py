@@ -1,8 +1,10 @@
 import os
 
-from source.stereovision_module.photo_sequence import PhotoSequence
+import pytest
+from stereovision_module.photo_sequence import PhotoSequence
+from utils import set_stereovision_dir
 
-os.chdir('/home/runner/work/RoboticArm/RoboticArm/source/stereovision_module')
+set_stereovision_dir()
 
 def test_negative_total_photos():
     try:

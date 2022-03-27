@@ -1,7 +1,12 @@
-from source.stereovision_module.image_handler import ImageHandler
+import json
+import pytest
+from stereovision_module.image_handler import ImageHandler
 import os
 import cv2
-os.chdir('/home/runner/work/RoboticArm/RoboticArm/source/stereovision_module')
+import stereovision_module.params as params
+from utils import set_stereovision_dir
+
+set_stereovision_dir()
 
 def test_pair_img_size():
     imageToDisp = 'scenes/photo.png'
@@ -34,3 +39,10 @@ def test_empty_file():
         assert False
     except OSError:
         assert True
+
+def test_json_file_correctness():
+    params_file = os.getcwd() + '/src/pf_' + str(params.PHOTO_WIDTH) + '_' + str(params.PHOTO_HEIGHT) + '.txt'
+    f = open(params_file, 'r')
+    data = json.load(f)
+    f.close()
+    assert all(isinstance(value, int) for value in data.values())

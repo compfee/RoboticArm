@@ -3,12 +3,12 @@ import logging
 import os
 
 import cv2
-
+from utils import set_stereovision_dir
 from params import *
 
 __metaclass__ = type
 
-os.chdir('/home/runner/work/RoboticArm/RoboticArm/source/stereovision_module')
+set_stereovision_dir()
 
 class ImageHandler():
     def __init__(self):

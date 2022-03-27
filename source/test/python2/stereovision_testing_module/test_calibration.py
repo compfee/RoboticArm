@@ -1,9 +1,13 @@
 import os
+from os import path
 
-import source.stereovision_module.params as params
-from source.stereovision_module.calibration import Calibrator
+import pytest
 
-os.chdir('/home/runner/work/RoboticArm/RoboticArm/source/stereovision_module')
+import stereovision_module.params as params
+from stereovision_module.calibration import Calibrator
+from utils import set_stereovision_dir
+
+set_stereovision_dir()
 
 def test_show_rectified_pair():
     calib = Calibrator()

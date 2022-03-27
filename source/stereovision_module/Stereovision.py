@@ -27,9 +27,7 @@ if __name__ == "__main__":
         calib.show_rectified_pair(params.TOTAL_PHOTOS)
     elif args.depthmap:
         depthMap = DepthMap()
-        image = '../scenes/photo.png'
-        rectified_pair, disparity = depthMap.build_depth_map(image)
-        print(disparity.max())
+        rectified_pair, disparity = depthMap.build_depth_map('../scenes/photo.png')
         depthMap.draw_plot(rectified_pair, disparity)
         # depthMap.highlight_borders()
     elif args.shoot:
