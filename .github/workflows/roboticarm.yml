@@ -30,9 +30,10 @@ jobs:
         pip install keras
         pip install pyusb
         pip install matplotlib
+        pip install pytest-shutil
 
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Test with pytest
       run: |
-          pytest --ignore-glob=source/test/stereovision_module --ignore-glob=source/test/3.6/image_processing_module/test_tutorial.py --ignore-glob=source/test/3.6/image_processing_module/test_fine_tuning.py --ignore-glob=source/test/3.6/image_processing_module/test_compress_images.py
+          pytest --ignore-glob=source/test/python2/stereovision_module --ignore-glob=source/test/python3/image_processing_module/test_tutorial.py --ignore-glob=source/test/python3/image_processing_module/test_fine_tuning.py --ignore-glob=source/test/python3/image_processing_module/test_compress_images.py
