@@ -1,8 +1,9 @@
+import json
 import pytest
 from stereovision_module.image_handler import ImageHandler
 import os
 import cv2
-
+import params
 from utils import set_stereovision_dir
 
 set_stereovision_dir()
@@ -38,3 +39,10 @@ def test_empty_file():
         assert False
     except OSError:
         assert True
+
+def test_json_file_correctness():
+    params_file = os.getcwd() + '/src/pf_' + str(params.PHOTO_WIDTH) + '_' + str(params.PHOTO_HEIGHT) + '.txt'
+    f = open(params_file, 'r')
+    data = json.load(f)
+    f.close()
+    assert all(isinstance(value, int) for value in data.values())
