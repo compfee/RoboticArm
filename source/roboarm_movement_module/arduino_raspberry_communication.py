@@ -73,6 +73,7 @@ class CommunicationArduinoRaspberry:
         else:
             return False
 
+
     def print_predictions(self, test_dir):
         test_sample = len(os.listdir(test_dir))
         test_x_data_set = np.zeros([test_sample, 100, 100, 3])
