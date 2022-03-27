@@ -5,7 +5,6 @@ import cv2
 from camera_module.camera import Camera
 from image_handler import ImageHandler
 
-
 class PhotoSequence():
     def __init__(self, total_photos=15):
         self.photo_width = 1280

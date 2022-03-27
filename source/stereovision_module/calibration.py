@@ -24,14 +24,14 @@ class Calibrator(ImageHandler):
         while photo_counter != TOTAL_PHOTOS:
           photo_counter = photo_counter + 1
           print ('Import pair No ' + str(photo_counter))
-          leftName = 'pairs/left_'+str(photo_counter).zfill(2)+'.png'
-          rightName = 'pairs/right_'+str(photo_counter).zfill(2)+'.png'
-          if os.path.isfile(leftName) and os.path.isfile(rightName):
-              imgLeft = cv2.imread(leftName,1)
-              imgRight = cv2.imread(rightName,1)
-              self.calibrator.add_corners((imgLeft, imgRight), True)
-              pass
-        print ('End cycle')
+          # leftName = 'pairs/left_'+str(photo_counter).zfill(2)+'.png'
+          # rightName = 'pairs/right_'+str(photo_counter).zfill(2)+'.png'
+          # if os.path.isfile(leftName) and os.path.isfile(rightName):
+          #     imgLeft = cv2.imread(leftName,1)
+          #     imgRight = cv2.imread(rightName,1)
+          #     self.calibrator.add_corners((imgLeft, imgRight), True)
+          #     pass
+        # print ('End cycle')
 
     def calibrate_camera(self):
         logging.info('Starting calibration... It can take several minutes!')

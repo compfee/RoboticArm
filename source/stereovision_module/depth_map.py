@@ -25,9 +25,12 @@ class DepthMap(ImageHandler):
 
     # Depth map function
     def stereo_depth_map(self,rectified_pair, ndisp, sws):
-        stereo = cv2.StereoBM_create(numDisparities=ndisp,blockSize= sws)
-        # stereo = cv2.StereoBM(cv2.STEREO_BM_BASIC_PRESET, \
-        #                       ndisparities=ndisp, SADWindowSize=sws)
+        if cv2.__version__ == '2.4.11':
+            stereo = cv2.StereoBM(cv2.STEREO_BM_BASIC_PRESET, \
+                                  ndisparities=ndisp, SADWindowSize=sws)
+        else:
+            stereo = cv2.StereoBM_create(numDisparities=ndisp,blockSize= sws)
+
         return stereo.compute(rectified_pair[0], rectified_pair[1])
 
     def build_depth_map(self, image_path):
@@ -51,12 +54,3 @@ class DepthMap(ImageHandler):
         self.__plot(u'Right calibrated', rectified_pair[1], 2)
         self.__plot(u'Depth map', disparity/255., 3)
         plt.show()
-
-# depthMap = DepthMap()
-# image = '../scenes/photo.png'
-# try:
-#     rectified_pair, disparity = depthMap.build_depth_map(image)
-#     depthMap.draw_plot(rectified_pair, disparity)
-# except:
-#     logging.error("Wrong calibration directory")
-#     # depthMap.highlight_borders()

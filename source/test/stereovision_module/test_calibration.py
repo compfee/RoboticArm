@@ -5,8 +5,9 @@ import pytest
 
 import stereovision_module.params as params
 from stereovision_module.calibration import Calibrator
+from utils import set_stereovision_dir
 
-os.chdir('/home/runner/work/RoboticArm/RoboticArm/source/stereovision_module')
+set_stereovision_dir()
 
 def test_show_rectified_pair():
     calib = Calibrator()
