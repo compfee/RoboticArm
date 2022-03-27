@@ -37,6 +37,10 @@ def test_capture():
     test_sample, test_x_data_set, predictions = communication.print_predictions(path)
     assert camera.capture(path) == test_sample
 
+def test_capture_no_photo():
+    path = str(get_project_root())+'/source/rendering_module/no_results/results/GBT/'
+    assert camera.capture(path) == False
+
 def test_sleep():
     camera.sleep(0.1)
     assert camera.sleep(0.1) == time.sleep(0.1)
