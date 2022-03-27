@@ -1,4 +1,3 @@
-# import serial
 
 from PIL import Image
 
@@ -69,7 +68,7 @@ class CommunicationArduinoRaspberry:
         c = camera.capture(test_dir)
         camera.stop_preview()
         if c > 0:
-            return True
+            return c
         else:
             return False
 
