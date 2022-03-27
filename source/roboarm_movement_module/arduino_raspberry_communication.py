@@ -66,8 +66,13 @@ class CommunicationArduinoRaspberry:
         camera = Camera()
         camera.start_preview()
         camera.sleep(0.001)
-        camera.capture(test_dir)
+        c = camera.capture(test_dir)
         camera.stop_preview()
+        if c > 0:
+            return True
+        else:
+            return False
+
 
     def print_predictions(self, test_dir):
         test_sample = len(os.listdir(test_dir))
