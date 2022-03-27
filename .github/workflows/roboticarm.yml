@@ -29,6 +29,7 @@ jobs:
         pip install tensorflow
         pip install keras
         pip install pyusb
+        pip install pathlib2
         pip install matplotlib
         pip install pytest-shutil
 
