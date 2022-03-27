@@ -3,7 +3,7 @@ import pytest
 from stereovision_module.image_handler import ImageHandler
 import os
 import cv2
-import stereovision_module.params
+import stereovision_module.params as params
 from utils import set_stereovision_dir
 
 set_stereovision_dir()
