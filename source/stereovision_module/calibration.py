@@ -55,5 +55,3 @@ class Calibrator(ImageHandler):
         cv2.imwrite("rectifyed_left.jpg",self.rectified_pair[0])
         cv2.imwrite("rectifyed_right.jpg",self.rectified_pair[1])
         cv2.waitKey(0)
-
-

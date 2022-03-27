@@ -1,6 +1,7 @@
 import logging
 
 import cv2
+import numpy as np
 from matplotlib import pyplot as plt
 from stereovision.calibration import StereoCalibration
 
@@ -54,3 +55,6 @@ class DepthMap(ImageHandler):
         self.__plot(u'Right calibrated', rectified_pair[1], 2)
         self.__plot(u'Depth map', disparity/255., 3)
         plt.show()
+
+    def get_coordinates(self):
+        return np.array([0.5, 0.6, 4, 6])
