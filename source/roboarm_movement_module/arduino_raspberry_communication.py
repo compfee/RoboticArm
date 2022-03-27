@@ -38,7 +38,10 @@ class CommunicationArduinoRaspberry:
             print('Right')
             offset = int(current + angle)
 
-        return offset%360
+        if offset < 0:
+            offset = 360+offset
+
+        return offset % 360
 
     def connect_ttyACMx(self, ttyACMx):
         try:
@@ -50,7 +53,6 @@ class CommunicationArduinoRaspberry:
                 raise ValueError('Device not found1')
         except :
             raise ValueError('Device not found1')
-
 
     def model_load(self, model_path):
         try:
@@ -71,7 +73,6 @@ class CommunicationArduinoRaspberry:
             return c
         else:
             return False
-
 
     def print_predictions(self, test_dir):
         test_sample = len(os.listdir(test_dir))
@@ -142,7 +143,7 @@ class CommunicationArduinoRaspberry:
             current_middle = offset
             i += 1
             print("Current = ", current_middle)
-        return current_middle
+        return current_middle % 360
 
 if __name__ == '__main__':
     i = 0
