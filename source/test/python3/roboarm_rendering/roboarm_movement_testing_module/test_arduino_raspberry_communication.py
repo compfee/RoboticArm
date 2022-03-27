@@ -114,8 +114,8 @@ def test_set_offset():
 
 # 15
 def test_set_offset1():
-    assert communication.set_offset(373) == 360
+    assert communication.set_offset(373) == 0
 
 # 16
-def test_set_offset1():
+def test_set_offset2():
     assert communication.set_offset(380) == 7
