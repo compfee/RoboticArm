@@ -12,6 +12,7 @@ import time
 import os
 from utils import get_project_root
 from camera_module.camera import Camera
+from rendering_module.source.preparation import Preparation
 
 WIDTH_ANGLE = 62
 HEIGH_ANGLE = 48
@@ -145,12 +146,21 @@ class CommunicationArduinoRaspberry:
             print("Current = ", current_middle)
         return current_middle % 360
 
+class Model:
+    def __init__(self):
+        print("Init Model")
+    def check_load_model(self,model_path):
+        categories = ("hand_2208")
+        preparation = Preparation()
+        preparation.check_dir(model_path, categories)
+
 if __name__ == '__main__':
     i = 0
     temp = 0
     current_middle = 90
     camera = Camera()
     communication = CommunicationArduinoRaspberry()
+    preparation = Preparation()
     communication.connect_ttyACMx(1)
     communication.model_load(model_path)
     camera.set_camera((2592, 1944), 180)

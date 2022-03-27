@@ -6,11 +6,13 @@ from camera_module.camera import Camera
 from roboarm_movement_module.arduino_raspberry_communication import CommunicationArduinoRaspberry
 from utils import get_project_root
 import os.path
-
+from rendering_module.source.preparation import Preparation
+from roboarm_movement_module.arduino_raspberry_communication import Model
 
 communication = CommunicationArduinoRaspberry()
 camera = Camera()
-
+preparation = Preparation()
+model_ = Model()
 # integration
 # 1
 def test_predictions_checking():
@@ -50,6 +52,13 @@ def test_write_predictions_to_csv():
     assert communication.read_predictions_csv(predictions_path, 1) == pred
     with pytest.raises(FileNotFoundError):
         communication.read_predictions_csv(random_path, 1)
+
+# def test_check_and_load_model():
+#     model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/'
+#     # model_path = str(get_project_root()) + '/source/data_Set/frame_path/'
+#     # assert os.path.exists(model_path) == True
+#     assert model_.check_load_model(model_path) == os.path.exists(model_path)
+
 # module
 # 1
 def test_offset_calculating_left():
