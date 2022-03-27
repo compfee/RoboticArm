@@ -8,8 +8,7 @@ from tensorflow import keras
 import csv
 # from picamera import PiCamera
 from pathlib import Path
-import usb.core
-import usb.util
+
 import time
 import os
 from utils import get_project_root
@@ -40,7 +39,7 @@ class CommunicationArduinoRaspberry:
             print('Right')
             offset = int(current + angle)
 
-        return offset
+        return offset%360
 
     def connect_ttyACMx(self, ttyACMx):
         try:

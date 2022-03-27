@@ -5,7 +5,7 @@ name: RoboticArm
 
 on:
   push:
-    branches: [ testing_roboarm, kuxov]
+    branches: [ main, testing_roboarm, kuksov]
   pull_request:
     branches: [ main ]
 
@@ -29,9 +29,10 @@ jobs:
         pip install tensorflow
         pip install keras
         pip install pyusb
+        pip install matplotlib
 
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Test with pytest
       run: |
-          pytest --ignore-glob=source/test/stereovision_module
+          pytest --ignore-glob=source/test/stereovision_module --ignore-glob=source/test/3.6/image_processing_module/test_tutorial.py --ignore-glob=source/test/3.6/image_processing_module/test_fine_tuning.py --ignore-glob=source/test/3.6/image_processing_module/test_compress_images.py

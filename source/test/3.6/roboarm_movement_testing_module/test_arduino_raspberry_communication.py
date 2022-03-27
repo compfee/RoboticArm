@@ -1,18 +1,23 @@
 import pytest
 import numpy as np
-import warnings
 import time
 import csv
-from tensorflow import keras
-from roboarm_movement_module.arduino_raspberry_communication import Camera
+from camera_module.camera import Camera
 from roboarm_movement_module.arduino_raspberry_communication import CommunicationArduinoRaspberry
 from utils import get_project_root
+
 
 communication = CommunicationArduinoRaspberry()
 camera = Camera()
 
 def test_offset_calculating_left():
     assert communication.move_x([0.2, 0.0, 0.4, 0.0], 90) == (77)
+
+def test_offset_calculating_left1():
+    assert communication.move_x([0.0, 0.0, 0.0, 0.0], 0) == (0)
+
+def test_offset_calculating_left2():
+    assert communication.move_x([0.6, 0.0, 0.9, 0.0], 360) == (18)
 
 def test_offset_calculating_right():
      assert communication.move_x([0.7, 0.0, 0.9, 0.0], 77) == (89)
