@@ -3,6 +3,13 @@ from utils import get_project_root
 import os
 import shutil
 
+primalFolderPath = str(get_project_root())+'/source/rendering_module/no_results'
+try:
+        os.makedirs(primalFolderPath + "/results/GBT")
+
+except :
+        True
+
 # module
 # 17
 def test_preparation_with_existing_folder():
