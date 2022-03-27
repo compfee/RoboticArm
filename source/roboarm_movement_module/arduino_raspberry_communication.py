@@ -3,12 +3,16 @@
 from PIL import Image
 
 import numpy as np
+import os
 from tensorflow import keras
 import csv
 # from picamera import PiCamera
+from pathlib import Path
+
+import time
 import os
 from utils import get_project_root
-from source.camera_module.camera import Camera
+from camera_module.camera import Camera
 
 WIDTH_ANGLE = 62
 HEIGH_ANGLE = 48
@@ -35,7 +39,7 @@ class CommunicationArduinoRaspberry:
             print('Right')
             offset = int(current + angle)
 
-        return offset
+        return offset%360
 
     def connect_ttyACMx(self, ttyACMx):
         try:

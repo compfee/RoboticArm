@@ -13,6 +13,12 @@ camera = Camera()
 def test_offset_calculating_left():
     assert communication.move_x([0.2, 0.0, 0.4, 0.0], 90) == (77)
 
+def test_offset_calculating_left1():
+    assert communication.move_x([0.0, 0.0, 0.0, 0.0], 0) == (0)
+
+def test_offset_calculating_left2():
+    assert communication.move_x([0.6, 0.0, 0.9, 0.0], 360) == (18)
+
 def test_offset_calculating_right():
      assert communication.move_x([0.7, 0.0, 0.9, 0.0], 77) == (89)
 
