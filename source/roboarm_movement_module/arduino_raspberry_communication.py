@@ -164,6 +164,8 @@ class Model:
             if preparation.check_dir(model_path, categories):
                 communication.model_load(model_path + categories)
                 return True
+            else:
+                return False
         except:
             return False
 
