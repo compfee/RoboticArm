@@ -8,6 +8,7 @@ from utils import get_project_root
 import os.path
 from rendering_module.source.preparation import Preparation
 from roboarm_movement_module.arduino_raspberry_communication import Model
+# from stereovision_module.depth_map import DepthMap
 
 communication = CommunicationArduinoRaspberry()
 camera = Camera()
@@ -53,11 +54,22 @@ def test_write_predictions_to_csv():
     with pytest.raises(FileNotFoundError):
         communication.read_predictions_csv(random_path, 1)
 
-# def test_check_and_load_model():
-#     model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/'
-#     # model_path = str(get_project_root()) + '/source/data_Set/frame_path/'
-#     # assert os.path.exists(model_path) == True
-#     assert model_.check_load_model(model_path) == os.path.exists(model_path)
+# def test_get_coord():
+#     depthmap = DepthMap()
+#     assert communication.get_coord() == depthmap.get_coordinates()
+#
+
+def test_check_and_load_model_true():
+    model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/'
+    # model_path = str(get_project_root()) + '/source/data_Set/frame_path/'
+    # assert os.path.exists(model_path) == True
+    assert model_.check_load_model(model_path) == True
+
+def test_check_and_load_model1_false():
+    model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/hand1/'
+    # model_path = str(get_project_root()) + '/source/data_Set/frame_path/'
+    # assert os.path.exists(model_path) == True
+    assert model_.check_load_model(model_path) == False
 
 # module
 # 1
