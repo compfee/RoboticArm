@@ -25,11 +25,12 @@ def test_capture():
     path = str(get_project_root())+'/source/data_Set/frame_path/'
     test_sample, test_x_data_set, predictions = communication.print_predictions(path)
     assert camera.capture(path) == test_sample
-# 3
-def test_capture_no_photo():
-    path = str(get_project_root())+'/source/rendering_module/no_results/results/GBT/'
-    assert camera.capture(path) == False
-#  4
+
+# def test_capture_no_photo():
+#     path = str(get_project_root())+'/source/rendering_module/no_results/results/GBT/'
+#     assert camera.capture(path) == False
+
+#  3
 def test_write_predictions_to_csv():
     pred = [[0.1, 0.2, 0.3, 0.4], [0.0, 0.0, 0.0, 0.0]]
     predictions_path = str(get_project_root()) + '/source/data_Set/with_coordinates/predictions.csv'
@@ -54,22 +55,19 @@ def test_write_predictions_to_csv():
     with pytest.raises(FileNotFoundError):
         communication.read_predictions_csv(random_path, 1)
 
-# def test_get_coord():
-#     depthmap = DepthMap()
-#     assert communication.get_coord() == depthmap.get_coordinates()
-#
-
+# 4
 def test_check_and_load_model_true():
     model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/'
     # model_path = str(get_project_root()) + '/source/data_Set/frame_path/'
     # assert os.path.exists(model_path) == True
-    assert model_.check_load_model(model_path) == True
-
-# def test_check_and_load_model1_false():
-#     model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/hand1/'
-#     # model_path = str(get_project_root()) + '/source/data_Set/frame_path/'
-#     # assert os.path.exists(model_path) == True
-#     assert model_.check_load_model(model_path) == False
+    cat = ("hand_2208")
+    assert model_.check_load_model(model_path) == preparation.check_dir(model_path, cat)
+# 5
+def test_check_and_load_model_false():
+    model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/hand1/'
+    # model_path = str(get_project_root()) + '/source/data_Set/frame_path/'
+    # assert os.path.exists(model_path) == True
+    assert model_.check_load_model(model_path) == False
 
 # module
 # 1
