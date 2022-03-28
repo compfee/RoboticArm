@@ -3,8 +3,9 @@ import os
 import pytest
 import zipfile
 
-from image_processing_module.zip_function_module.zip_function import zip_func
+from image_processing_module.zip_function_module.zip_function import zip_func  ##
 from utils import get_project_root
+from roboarm_movement_module.arduino_raspberry_communication import CommunicationArduinoRaspberry
 import filecmp
 
 
@@ -30,7 +31,7 @@ def test_zip_function():
 
 def test_zip_func_is_empty():
     with pytest.raises(Exception):
-        zip_func(str(get_project_root()) + "/source/image_processing_module/test/zip_function_module")
+        zip_func(direction2=str(get_project_root()) + "/source/image_processing_module/test/zip_function_module")
 
 
 def test_zip_function_is_compressed():
@@ -44,6 +45,18 @@ def test_zip_function_is_compressed():
             fp = os.path.join(path, f)
             orig_sum += os.path.getsize(fp)
 
-    comp_sum = os.stat(str(get_project_root()) + "/source/image_processing_module/zip_function_module/archive.zip").st_size
+    comp_sum = os.stat(
+        str(get_project_root()) + "/source/image_processing_module/zip_function_module/archive.zip").st_size
 
     assert comp_sum < orig_sum
+
+
+def test_integr_zip_csv():
+    car = CommunicationArduinoRaspberry()
+    predictions = [[0.1, 0.2, 0.3, 0.4], [0.0, 0.0, 0.0, 0.0]]
+    predictions_path = predictions_path = str(get_project_root()) + '/source/data_Set/with_coordinates/predictions.csv'
+    car.write_predictions_to_csv(predictions, predictions_path)
+    assert os.stat(str(get_project_root()) + "/source"
+                                             "/image_processing_module"
+                                             "/zip_function_module/csv"
+                                             "/archive_csv.zip").st_size != 0

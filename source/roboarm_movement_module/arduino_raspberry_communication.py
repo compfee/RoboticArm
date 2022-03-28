@@ -1,4 +1,3 @@
-
 from PIL import Image
 
 import numpy as np
@@ -10,9 +9,11 @@ from pathlib import Path
 
 import time
 import os
-from utils import get_project_root
-from camera_module.camera import Camera
-from rendering_module.source.preparation import Preparation
+from utils import get_project_root  ##
+from camera_module.camera import Camera  ##
+from rendering_module.source.preparation import Preparation  ##
+from image_processing_module.zip_function_module.zip_function import zip_func
+
 # from stereovision_module.depth_map import DepthMap
 
 WIDTH_ANGLE = 62
@@ -20,8 +21,8 @@ HEIGH_ANGLE = 48
 
 model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/hand_2208'
 frame_path = str(get_project_root()) + '/source/data_Set/data/'
-test_dir = str(get_project_root())+'/source/data_Set/data/'
-predictions_path = str(get_project_root())+'/source/data_Set/with_coordinates/predictions.csv'
+test_dir = str(get_project_root()) + '/source/data_Set/data/'
+predictions_path = str(get_project_root()) + '/source/data_Set/with_coordinates/predictions.csv'
 count = 0
 
 
@@ -41,7 +42,7 @@ class CommunicationArduinoRaspberry:
             offset = int(current + angle)
 
         if offset < 0:
-            offset = 360+offset
+            offset = 360 + offset
 
         return offset % 360
 
@@ -53,7 +54,7 @@ class CommunicationArduinoRaspberry:
                 return "ttyACM0"
             else:
                 raise ValueError('Device not found1')
-        except :
+        except:
             raise ValueError('Device not found1')
 
     def model_load(self, model_path):
@@ -89,16 +90,21 @@ class CommunicationArduinoRaspberry:
         test_x_data_set = test_x_data_set / 255
         model = self.model_load(model_path)
         predictions = model.predict(test_x_data_set)
-        return test_sample,test_x_data_set, predictions
+        return test_sample, test_x_data_set, predictions
 
     def write_predictions_to_csv(self, predictions, predictions_path):
         try:
             with open(predictions_path, 'w') as f:
-            # create the csv writer
+                # create the csv writer
                 writer = csv.writer(f)
                 for j in predictions:
                     # write a row to the csv file
                     writer.writerow(j)
+            zip_func(direction=str(get_project_root()) + '/source/data_Set/with_coordinates',
+                     direction2=str(get_project_root()) + "/source"
+                                                          "/image_processing_module"
+                                                          "/zip_function_module/csv"
+                                                          "/archive_csv.zip")
         except:
             raise FileNotFoundError
 
@@ -116,28 +122,28 @@ class CommunicationArduinoRaspberry:
         except:
             raise TypeError("Predictions have wrong type")
 
-    def read_predictions_csv(self,predictions_path,i):
-        i=0
+    def read_predictions_csv(self, predictions_path, i):
+        i = 0
         test_dir = str(get_project_root()) + '/source/data_Set/data/'
         test_sample = len(os.listdir(test_dir))
-        x_= [[0] * 4 for i in range(test_sample)]
+        x_ = [[0] * 4 for i in range(test_sample)]
         try:
             with open(predictions_path) as File:
                 reader = csv.reader(File)
                 for x in reader:
                     if x != []:
-                        x_[i] = [float(x[0]),float(x[1]),float(x[2]),float(x[3])]
-                        i+=1
+                        x_[i] = [float(x[0]), float(x[1]), float(x[2]), float(x[3])]
+                        i += 1
             return x_
         except:
             raise FileNotFoundError("There is no predictions file")
 
-    def set_offset(self,current_middle):
+    def set_offset(self, current_middle):
         i = 0
         test_dir = str(get_project_root()) + '/source/data_Set/data/'
         test_sample = len(os.listdir(test_dir))
-        for i in range(0,test_sample):
-            x_= self.read_predictions_csv(predictions_path, i)
+        for i in range(0, test_sample):
+            x_ = self.read_predictions_csv(predictions_path, i)
             print('Predictions = ', x_[i])
             print('Height = ', self.calculate_height(x_[i]))
             print('Width = ', self.calculate_width(x_[i]))
@@ -151,12 +157,11 @@ class CommunicationArduinoRaspberry:
     #     return depthmap.get_coordinates()
 
 
-
 class Model:
     def __init__(self):
         print("Init Model")
 
-    def check_load_model(self,model_path):
+    def check_load_model(self, model_path):
         categories = ("hand_2208")
         preparation = Preparation()
         communication = CommunicationArduinoRaspberry()
@@ -189,7 +194,3 @@ if __name__ == '__main__':
         test_x_data_set[0].shape
         communication.set_offset(current_middle)
         temp += 1
-
-
-
-
