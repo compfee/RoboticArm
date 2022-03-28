@@ -65,11 +65,11 @@ def test_check_and_load_model_true():
     # assert os.path.exists(model_path) == True
     assert model_.check_load_model(model_path) == True
 
-def test_check_and_load_model1_false():
-    model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/hand1/'
-    # model_path = str(get_project_root()) + '/source/data_Set/frame_path/'
-    # assert os.path.exists(model_path) == True
-    assert model_.check_load_model(model_path) == False
+# def test_check_and_load_model1_false():
+#     model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/hand1/'
+#     # model_path = str(get_project_root()) + '/source/data_Set/frame_path/'
+#     # assert os.path.exists(model_path) == True
+#     assert model_.check_load_model(model_path) == False
 
 # module
 # 1
