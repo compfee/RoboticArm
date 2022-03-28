@@ -8,7 +8,7 @@ from utils import set_stereovision_dir
 
 set_stereovision_dir()
 
-def test_pair_img_size():
+def test_paired_img_size():
     imageToDisp = 'scenes/photo.png'
     hand = ImageHandler()
     pair_img = cv2.imread(imageToDisp, 0)
@@ -40,9 +40,3 @@ def test_empty_file():
     except OSError:
         assert True
 
-def test_json_file_correctness():
-    params_file = os.getcwd() + '/src/pf_' + str(params.PHOTO_WIDTH) + '_' + str(params.PHOTO_HEIGHT) + '.txt'
-    f = open(params_file, 'r')
-    data = json.load(f)
-    f.close()
-    assert all(isinstance(value, int) for value in data.values())

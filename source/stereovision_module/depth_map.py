@@ -34,10 +34,12 @@ class DepthMap(ImageHandler):
 
         return stereo.compute(rectified_pair[0], rectified_pair[1])
 
-    def build_depth_map(self, image_path):
+    def build_depth_map(self, image_path, splitted_image=None):
         logging.info('Load calibration data...')
+        if splitted_image is None:
+            splitted_image = self.split_image(image_path)
         calibration = StereoCalibration(input_folder='ress')
-        rectified_pair = calibration.rectify((self.split_image(image_path)))
+        rectified_pair = calibration.rectify(splitted_image)
         disparity = self.stereo_depth_map(rectified_pair, 256, 15)
         logging.info('Building depth map...')
         return rectified_pair, disparity
