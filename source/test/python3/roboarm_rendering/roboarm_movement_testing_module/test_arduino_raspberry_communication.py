@@ -63,7 +63,8 @@ def test_check_and_load_model_true():
     model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/'
     # model_path = str(get_project_root()) + '/source/data_Set/frame_path/'
     # assert os.path.exists(model_path) == True
-    assert model_.check_load_model(model_path) == True
+    cat = ("hand_2208")
+    assert model_.check_load_model(model_path) == preparation.check_dir(model_path, cat)
 
 # def test_check_and_load_model1_false():
 #     model_path = str(get_project_root()) + '/source/roboarm_movement_module/model/hand1/'
